@@ -1,0 +1,123 @@
+<!-- menu -->
+<div class="card">
+  <p-toast />
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <p-button severity="success" label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+      <p-button severity="danger" label="Delete" icon="pi pi-trash" (onClick)="deleteSelectedGifts()"
+        [disabled]="!selectedGifts || !selectedGifts.length" />
+
+    </ng-template>
+    <ng-template pTemplate="right">
+      <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+        class="mr-2 inline-block" />
+      <p-button label="Export" icon="pi pi-upload" severity="help" />
+      <!-- (onClick)="exportCSV($event)" -->
+    </ng-template>
+  </p-toolbar>
+
+  <!-- table -->
+  <p-table #dt [value]="gifts" [rows]="10" [paginator]="true" [globalFilterFields]="['id', 'name', 'donor', 'price']"
+    [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedGifts" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="page {first} of {totalRecords}" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+      <div class="flex  align-items-center justify-content-between">
+        <h2 class="m-0">Manage Gifts</h2>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" placeholder="Search..." />
+          <!-- (input)="dt.filterGlobal($event.target.value, 'contains')" -->
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" style="width: 100%">
+      <tr>
+        <th style="width: 4rem">
+          <p-tableHeaderCheckbox />
+        </th>
+        <th>Image</th>
+        <th pSortableColumn="id" style="min-width: 15rem">
+          Id<p-sortIcon field="id" />
+        </th>
+        <th pSortableColumn="name" style="min-width: 20rem">Name <p-sortIcon field="name" /></th>
+       
+        <th pSortableColumn="donor" style="min-width: 15rem">
+          Donor<p-sortIcon field="donor" />
+        </th>
+        <th pSortableColumn="price" style="min-width: 10rem">Price <p-sortIcon field="price" /></th>
+        <!-- <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+                Status <p-sortIcon field="inventoryStatus" />
+              </th> -->
+        <!-- <th style="min-width: 15rem"></th> -->
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-gift>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="gift" />
+        </td>
+        <!-- how to show the image??? -->
+        <!-- <td>{{ gift.image }}</td> -->
+        <td>
+          <img [src]="'../../../assets'+'/' + gift.image" [alt]="gift.name" width="50" class="shadow-4" />
+        </td>
+
+        <td>{{ gift.id }}</td>
+        <!-- <td>
+                <img
+                  [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                  [alt]="product.name"
+                  width="50"
+                  class="shadow-4"
+                />
+              </td> -->
+        <td>{{ gift.name }}</td>
+      
+        <td>{{ gift.donor }}</td>
+        <td>{{ gift.price }}</td>
+
+        <!-- <td> -->
+        <!-- <p-rating
+                  [(ngModel)]="product.rating"
+                  [readonly]="true"
+                  [cancel]="false"
+                /> -->
+        <!-- </td> -->
+        <!-- <td>
+                <p-tag
+                  [value]="product.inventoryStatus"
+                  [severity]="getSeverity(product.inventoryStatus)"
+                />
+              </td> -->
+        <td>
+          <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+            (onClick)="editGift(gift)" />
+          <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true"
+            (onClick)="deleteGift(gift)" />
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ gifts ? gifts.length : 0 }} gifts.
+      </div>
+    </ng-template>
+
+  </p-table>
+
+
+
+
+  <p-dialog [(visible)]="giftDialogNew" [style]="{ width: '450px' }" header="Add Gift" [modal]="true"
+    styleClass="p-fluid">
+    <app-add-gift [giftsFromManage]="gifts" (giftsToManage)="rendeGifts($event)"
+      (messegeServiceAdd)="messegeService($event)" (giftDialogNew)="hideDialogNew($event)"></app-add-gift>
+  </p-dialog>
+  <p-dialog [(visible)]="giftDialogEdit" [style]="{ width: '450px' }" header="Edit Gift" [modal]="true"
+    styleClass="p-fluid">
+    <app-update-gift (giftsToManage)="rendeGifts($event)" [giftFromManage]="gift"
+      (messegeServiceAdd)="messegeService($event)" (giftDialogEdit)="hideDialogEdit($event)"></app-update-gift>
+  </p-dialog>
+
+  <p-confirmDialog [style]="{ width: '450px' }" />
+</div>

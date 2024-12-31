@@ -1,0 +1,33 @@
+<p>add-donor works!</p>
+
+
+    <form [formGroup]="addDonorForm">
+        <div>
+            <label for="id">id</label>
+            <p-inputNumber type="text" id="id" formControlName="id"/>
+            <div class="p-error" *ngIf="addDonorForm.controls['id'].errors?.['required'] && addDonorForm.controls['id'].touched">Id is required</div>
+        </div>
+        <div>
+            <label for="fullName">name</label>
+            <input type="text" pInputText id="fullName" formControlName="fullName">
+            <div class="p-error" *ngIf="addDonorForm.controls['fullName'].errors?.['required'] && addDonorForm.controls['fullName'].touched">FullName is required</div>
+        </div>
+        <div>
+            <label for="adress">adress</label>
+            <input type="text" pInputText id="adress" formControlName="adress">
+            <div class="p-error" *ngIf="addDonorForm.controls['adress'].errors?.['required'] && addDonorForm.controls['adress'].touched">Adress is required</div>
+        </div>
+        <div>
+            <label for="phone">phone</label>
+            <input type="text" pInputText id="phone" formControlName="phone">
+            <div class="p-error" *ngIf="addDonorForm.controls['phone'].errors?.['required'] && addDonorForm.controls['phone'].touched">Phone is required</div>
+        </div>
+        <div>
+            <label for="email">email</label>
+            <input type="text" pInputText id="email" formControlName="email" >
+            <div class="p-error" *ngIf="addDonorForm.controls['email'].errors?.['required'] && addDonorForm.controls['email'].touched">Email is required</div>
+            <div class="p-error" *ngIf="addDonorForm.controls['email'].errors?.['email'] && addDonorForm.controls['email'].touched">Email not valid</div>
+    
+        </div>
+        <p-button [disabled]="addDonorForm.invalid" (click)="addDonor()">save</p-button>
+    </form>

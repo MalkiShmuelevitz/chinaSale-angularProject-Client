@@ -1,0 +1,33 @@
+<p>update-donor works!</p>
+
+<form [formGroup]="updateDonorForm">
+    <div>
+        <label for="id">id</label>
+        <p-inputNumber type="text" id="id" formControlName="id"/>
+        <div class="p-error" *ngIf="updateDonorForm.controls['id'].errors?.['required'] && updateDonorForm.controls['id'].touched">Id is required</div>
+    </div>
+    <div>
+        <label for="fullName">name</label>
+        <input type="text" pInputText id="fullName" formControlName="fullName">
+        <div class="p-error" *ngIf="updateDonorForm.controls['fullName'].errors?.['required'] && updateDonorForm.controls['fullName'].touched">FullName is required</div>
+    </div>
+    <div>
+        <label for="adress">adress</label>
+        <input type="text" pInputText id="adress" formControlName="adress">
+        <div class="p-error" *ngIf="updateDonorForm.controls['adress'].errors?.['required'] && updateDonorForm.controls['adress'].touched">Adress is required</div>
+    </div>
+    <div>
+        <label for="phone">phone</label>
+        <input type="text" pInputText id="phone" formControlName="phone">
+        <div class="p-error" *ngIf="updateDonorForm.controls['phone'].errors?.['required'] && updateDonorForm.controls['phone'].touched">Phone is required</div>
+    </div>
+    <div>
+        <label for="email">email</label>
+        <input type="text" pInputText id="email" formControlName="email" >
+        <div class="p-error" *ngIf="updateDonorForm.controls['email'].errors?.['required'] && updateDonorForm.controls['email'].touched">Email is required</div>
+        <div class="p-error" *ngIf="updateDonorForm.controls['email'].errors?.['email'] && updateDonorForm.controls['email'].touched">Email not valid</div>
+
+    </div>
+    <p-button [disabled]="updateDonorForm.invalid" (click)="updateDonor()">save</p-button>
+
+</form>

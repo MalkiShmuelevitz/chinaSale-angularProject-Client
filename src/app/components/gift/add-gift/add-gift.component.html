@@ -1,0 +1,62 @@
+<p-toast />
+<ng-template #formTemplate pTemplate="content">
+    <form [formGroup]="frmAddGift">
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" formControlName="name" required autofocus />
+            <!-- [(ngModel)]="gift.name" -->
+            <!-- *ngIf="submitted && !gift.name" -->
+            <!-- <small class="p-error" *ngIf="!gift.name">
+                Name is required.
+            </small> -->
+        </div>
+        <!-- <div class="field">
+            <label for="donor">Donor</label>
+            <input type="text" pInputText id="donor" formControlName="donor" required />
+            [(ngModel)]="gift.name"
+            *ngIf="submitted && !gift.name"
+            <small class="p-error" *ngIf="!gift.donor">
+                Donor is required.
+            </small>
+        </div> -->
+        <div class="field">
+            <label for="donor">Donor</label>
+            <p-dropdown inputId="donor" formControlName="donor" [options]="donors2">
+                <!-- [(ngModel)]="gift.donor" -->
+                <ng-template let-option pTemplate="item">
+                    <p-tag [value]="option" />
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="field col">
+            <label for="price">Price</label>
+            <p-inputNumber id="price" formControlName="price" />
+            <!-- <input id="price" pInputText formControlName="price" /> -->
+            <!-- [(ngModel)]="gift.price" -->
+            <!-- <small class="p-error" *ngIf="submitted && !gift.price">
+                Price is required.
+            </small> -->
+        </div>
+        <div class="field">
+            <label for="image">Image</label>
+            <input type="text" pInputText id="image" formControlName="image" required />
+            <!-- [(ngModel)]="gift.image" -->
+            <!-- *ngIf="submitted && !gift.image" -->
+            <!-- <small class="p-error" *ngIf="!gift.image">
+                Image is required.
+            </small> -->
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #formTemplate2 pTemplate="footer">
+    <div class="flex justify-content-end align-items-center w-full gap-2">
+        <p-button label="Cancel" icon="pi pi-times" [text]="true" (onClick)="hideDialog()" />
+        <p-button label="Save" icon="pi pi-check" [text]="true" [disabled]="!frmAddGift.valid" (onClick)="saveGift()" />
+    </div>
+</ng-template>
+<!-- <button label="Cancel" (click)="hideDialog()">Cancel</button> -->
+<!-- <button label="Save" [disabled]="!frmAddGift.valid" (click)="saveGift()">Save</button> -->
+
+<ng-container *ngTemplateOutlet="formTemplate"></ng-container>
+<ng-container *ngTemplateOutlet="formTemplate2"></ng-container>

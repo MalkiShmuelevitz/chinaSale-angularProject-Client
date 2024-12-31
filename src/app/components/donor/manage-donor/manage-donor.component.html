@@ -1,0 +1,23 @@
+<p>donors works!</p>
+@for(d of donors; track d.id){
+<div>
+    <span>{{d.id}} </span>
+    <span>{{d.fullName}} </span>
+    <span>{{d.adress}} </span>
+    <span>{{d.phone}} </span>
+    <span>{{d.email}} </span>
+   <span>
+    @for(dg of srvGift.getGiftsToDonor(d.fullName);track $index){
+        <span>{{dg.name}}</span>
+    }
+    </span>
+    <p-button (click)="openFormUpdateDonor(d)">update</p-button>
+</div>
+}
+<p-button (click)="openFormAddDonor()">add donor</p-button>
+@if(flag){
+    <app-add-donor (flag)="closeAddDonor($event)"></app-add-donor>
+}
+@if(flag2){
+    <app-update-donor (flag)="closeUpdateDonor($event)" [currentDonorFromManage]="currentDonor"></app-update-donor>
+}
