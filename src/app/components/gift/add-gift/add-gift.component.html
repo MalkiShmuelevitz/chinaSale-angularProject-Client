@@ -30,7 +30,7 @@
         </div>
         <div class="field col">
             <label for="price">Price</label>
-            <p-inputNumber id="price" formControlName="price" />
+            <p-inputNumber id="price" formControlName="price" class="w-full" />
             <!-- <input id="price" pInputText formControlName="price" /> -->
             <!-- [(ngModel)]="gift.price" -->
             <!-- <small class="p-error" *ngIf="submitted && !gift.price">
@@ -40,6 +40,16 @@
         <div class="field">
             <label for="image">Image</label>
             <input type="text" pInputText id="image" formControlName="image" required />
+            <p-fileUpload mode="basic" 
+            accept="image/*" 
+            [maxFileSize]="100000000" 
+            label="Import" chooseLabel="Import"
+            class="mr-2 inline-block">
+            </p-fileUpload>
+            <!-- [customUpload]="true"  -->
+            <!-- (uploadHandler)="onUpload($event)"  -->
+
+
             <!-- [(ngModel)]="gift.image" -->
             <!-- *ngIf="submitted && !gift.image" -->
             <!-- <small class="p-error" *ngIf="!gift.image">

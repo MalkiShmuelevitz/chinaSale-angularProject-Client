@@ -129,4 +129,13 @@ export class AddGiftComponent {
     this.giftDialogNew.emit(false)
     // this.submitted = false;
   }
+  // onUpload(event: any) {
+  //   const file = event.files[0];
+  //   const formData = new FormData();
+  //   formData.append('file', file);
+  
+  //   this.http.post('http://localhost:3000/upload', formData).subscribe((response) => {
+  //     console.log('Upload successful!', response);
+  //   });
+  // }
 }

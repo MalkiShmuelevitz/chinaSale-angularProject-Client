@@ -256,7 +256,6 @@ import { RegisterComponent } from './components/register/register.component';
     ButtonModule,
     CommonModule,
     MegaMenuModule
-    
   ],
   exports:[
     AvatarModule,
