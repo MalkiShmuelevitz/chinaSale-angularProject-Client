@@ -126,6 +126,8 @@ import { BuyGiftsComponent } from './components/buy-gifts/buy-gifts.component';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './components/register/register.component';
+import { CartComponent } from './components/cart/cart.component';
+import { LoginComponent } from './components/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -138,7 +140,9 @@ import { RegisterComponent } from './components/register/register.component';
     HomeComponent,
     BuyGiftsComponent,
     NavComponent,
-    RegisterComponent
+    RegisterComponent,
+    CartComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -255,7 +259,8 @@ import { RegisterComponent } from './components/register/register.component';
     RatingModule,
     ButtonModule,
     CommonModule,
-    MegaMenuModule
+    MegaMenuModule,
+    DividerModule
   ],
   exports:[
     AvatarModule,

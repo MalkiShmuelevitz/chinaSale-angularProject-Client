@@ -29,14 +29,25 @@
             <label for="donor">Donor</label>
             <p-dropdown inputId="donor" 
             formControlName="donor" 
+            [options]="donors2"
+            placeholder="Select A Donor"
+            [showClear]="true" 
+            required>
+                <!-- [(ngModel)]="gift.donor" -->
+                <!-- <ng-template let-option pTemplate="item">
+                    <p-tag [value]="option" />
+                </ng-template> -->
+            </p-dropdown>
+            <!-- <p-dropdown inputId="donor" 
+            formControlName="donor" 
             [options]="donors2" 
             (onChange)="onDonorChange($event)"
             >
-                <!-- [(ngModel)]="gift.donor" -->
+                [(ngModel)]="gift.donor"
                 <ng-template let-option pTemplate="item">
                     <p-tag [value]="option" />
                 </ng-template>
-            </p-dropdown>
+            </p-dropdown> -->
         </div>
         <div class="field col">
             <label for="price">Price</label>

@@ -6,6 +6,7 @@ import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import { GiftForCart } from '../../../domain/giftForCart';
 
 @Component({
   selector: 'app-buy-gifts',
@@ -14,15 +15,17 @@ import { CommonModule } from '@angular/common';
   // providers: [GiftService],
 })
 export class BuyGiftsComponent {
-  layout: string = 'list';
-
+  layout: 'list' | 'grid' = 'grid';
+  // layout: string = 'grid';
   gifts!: Gift[];
-  giftService:GiftService = inject(GiftService)
+  flag: boolean = false;
+  giftService: GiftService = inject(GiftService)
   // constructor(private giftService: GiftService) {}
 
   ngOnInit() {
+
     // data.slice(0, 12)
-      this.giftService.getGifts().subscribe((data) => (this.gifts = data));
+    this.giftService.getGifts().subscribe((data) => (this.gifts = data));
   }
 
   // getSeverity(gift: Gift) {
@@ -41,22 +44,36 @@ export class BuyGiftsComponent {
   //     }
   // };
 
+  // giftsOnCart: Gift[]=JSON.parse(localStorage.getItem('Cart') || '[]');
+  giftsOnCart: GiftForCart[] = JSON.parse(localStorage.getItem('Cart') || '[]');
 
+  addToCart(gift: Gift) {
+    //if userid in local storage
+    // if (localStorage.getItem("userName")) {
+      const giftForCart: GiftForCart = { ...gift, quantity: 1 };
+      if (this.giftsOnCart.length > 0) {
+        this.giftsOnCart.forEach((i) => {
+          if (i.id == giftForCart.id) {
+            if (i.quantity) {
+              i.quantity++
+              this.flag = true
+            }
+          }
+        })
+        if (!this.flag) {
+          this.giftsOnCart.push(giftForCart)
+        }
+        this.flag = false
+      }
+      else {
+        this.giftsOnCart.push(giftForCart)
+      }
+      localStorage.setItem('Cart', JSON.stringify(this.giftsOnCart));
+      this.giftsOnCart = JSON.parse(localStorage.getItem('Cart') || '[]');
+//     }
+// else{
+//   //navigate to login
+// }
+  }
 }
 
-// @Component({
-//     selector: 'data-view-layout-demo',
-//     templateUrl: './data-view-layout-demo.html',
-//     standalone: true,
-//     imports: [
-//       DataViewModule,
-//       TagModule,
-//       RatingModule,
-//       ButtonModule,
-//       CommonModule,
-//     ],
-//     providers: [ProductService],
-// })
-// export class DataViewLayoutDemo {
-   
-// }

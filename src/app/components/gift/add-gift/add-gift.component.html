@@ -21,12 +21,21 @@
         </div> -->
         <div class="field">
             <label for="donor">Donor</label>
-            <p-dropdown inputId="donor" formControlName="donor" [options]="donors2">
+            <p-dropdown inputId="donor" 
+            formControlName="donor" 
+            [options]="donors2"
+            placeholder="Select A Donor"
+            [showClear]="true" 
+            required>
                 <!-- [(ngModel)]="gift.donor" -->
-                <ng-template let-option pTemplate="item">
+                <!-- <ng-template let-option pTemplate="item">
                     <p-tag [value]="option" />
-                </ng-template>
+                </ng-template> -->
             </p-dropdown>
+            <!-- optionValue="value"
+            optionLabal="donor"
+            placeholder="Select A Donor"
+            [showClear]="true" -->
         </div>
         <div class="field col">
             <label for="price">Price</label>
@@ -40,16 +49,35 @@
         <div class="field">
             <label for="image">Image</label>
             <input type="text" pInputText id="image" formControlName="image" required />
-            <p-fileUpload mode="basic" 
+<!--             
+            <div class="card flex justify-content-center">
+                <p-fileUpload 
+                    name="demo[]" 
+                    url="https://www.primefaces.org/cdn/api/upload.php" 
+                    (onUpload)="onUpload($event)" 
+                    [multiple]="true" 
+                    accept="image/*" 
+                    maxFileSize="1000000000">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">
+                                    {{ file.name }} - {{ file.size }} bytes
+                                </li>
+                            </ul>
+                        </ng-template>
+                </p-fileUpload>
+            </div> -->
+
+            
+            <!-- <p-fileUpload mode="basic" 
             accept="image/*" 
             [maxFileSize]="100000000" 
             label="Import" chooseLabel="Import"
             class="mr-2 inline-block">
-            </p-fileUpload>
+            </p-fileUpload> -->
             <!-- [customUpload]="true"  -->
             <!-- (uploadHandler)="onUpload($event)"  -->
-
-
+           
             <!-- [(ngModel)]="gift.image" -->
             <!-- *ngIf="submitted && !gift.image" -->
             <!-- <small class="p-error" *ngIf="!gift.image">

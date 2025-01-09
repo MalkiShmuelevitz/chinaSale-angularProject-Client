@@ -5,7 +5,12 @@ import { GiftService } from '../../../../service/gift.service';
 import { DonorService } from '../../../../service/donor.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Donor } from '../../../../domain/donor';
-
+import { FileUploadEvent } from 'primeng/fileupload';
+// import { UplodeService } from '../../../../service/uplode.service';
+interface UploadEvent {
+  originalEvent: Event;
+  files: File[];
+}
 @Component({
   selector: 'app-add-gift',
   templateUrl: './add-gift.component.html',
@@ -31,7 +36,7 @@ export class AddGiftComponent {
   gift!: Gift
 
   constructor(
-    // private messageService: MessageService,
+    private messageService: MessageService,
     private confirmationService: ConfirmationService) {
     this.frmAddGift = new FormGroup({
       name: new FormControl("", [Validators.required]),
@@ -40,6 +45,10 @@ export class AddGiftComponent {
       image: new FormControl("", [Validators.required])
     })
   }
+  
+
+ 
+
   ngOnInit() {
     this.srvDonor.getDonors().subscribe((data) => {
       this.donors = data
@@ -99,7 +108,7 @@ export class AddGiftComponent {
 
         this.messegeServiceAdd.emit(
           {
-            severity: 'danger',
+            severity: 'error',
             summary: 'Error',
             detail: 'duplicate gift',
             life: 3000,
@@ -129,6 +138,57 @@ export class AddGiftComponent {
     this.giftDialogNew.emit(false)
     // this.submitted = false;
   }
+
+    // constructor(private messageService: MessageService) {}
+    // uploadedFiles: any[] = [];
+
+    // onUpload(event:FileUploadEvent) {
+    //     for(let file of event.files) {
+    //         this.uploadedFiles.push(file);
+    //     }
+
+    //     this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    // }
+
+    ////////////////////////////////////
+    // uploadedFiles: any[] = [];
+    // srvUplode:UplodeService=inject(UplodeService)
+    // onUpload(event: any) {
+    //   const formData = new FormData();
+    //   for (let file of event.files) {
+    //     formData.append('file', file);
+    //   }
+    //   this.srvUplode.post(formData)
+    // }
+//////////////////////////////////////////////
+    // onUpload(event: any) {
+      // const formData = new FormData();
+      // for (let file of event.files) {
+      //   formData.append('file', file);
+      // }
+  
+      // // העלאת הקובץ לשרת
+      // this.http.post('/upload', formData).subscribe(
+      //   (response: any) => {
+      //     this.messageService.add({
+      //       severity: 'info',
+      //       summary: 'File Uploaded',
+      //       detail: `File uploaded successfully to ${response.filePath}`
+      //     });
+      //     console.log('Upload response:', response);
+      //   },
+      //   (error) => {
+      //     this.messageService.add({
+      //       severity: 'error',
+      //       summary: 'Upload Failed',
+      //       detail: 'There was an error uploading the file.'
+      //     });
+      //     console.error('Upload error:', error);
+      //   }
+      // );
+    // }
+    
+
   // onUpload(event: any) {
   //   const file = event.files[0];
   //   const formData = new FormData();

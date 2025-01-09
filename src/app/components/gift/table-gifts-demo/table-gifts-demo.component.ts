@@ -28,11 +28,12 @@ export class TableGiftsDemoComponent  {
   selectedGifts!: Gift[] | null;
 
   submitted: boolean = false;
-
+  filterGiftsArr: Gift[]=[];
+  basicFilterGiftsArr: Gift[]=[];
   statuses!: any[];
   donors!: Donor[]
   donors2!: any[]
-  // @ViewChild('dt') dt!: Table; 
+  @ViewChild('dt') dt!: Table; 
 
   constructor(
     private giftService: GiftService,
@@ -71,13 +72,13 @@ export class TableGiftsDemoComponent  {
   //   }
   // }
   // // פונקציה ליצוא לאקסל
-  // exportCSV(a:any) {
-  //   if (this.dt) {
-  //     this.dt.exportCSV();
-  //   } else {
-  //     console.error('Table is not initialized');
-  //   }
-  // }
+  exportCSV(a:any) {
+    if (this.dt) {
+      this.dt.exportCSV();
+    } else {
+      console.error('Table is not initialized');
+    }
+  }
   
 
   openNew() {
@@ -162,7 +163,17 @@ export class TableGiftsDemoComponent  {
   hideDialogEdit(f: boolean) {
     this.giftDialogEdit = f
   }
-
+  filterGifts(target:any){
+    this.gifts = this.basicFilterGiftsArr
+    this.filterGiftsArr=[]
+    const filterText = target.value.trim().toLowerCase();
+    this.gifts.filter((g)=> g.name?.toLowerCase().includes(filterText)
+    ).forEach((gift)=>
+      this.filterGiftsArr.push(gift)
+    )
+    console.log(this.filterGiftsArr);
+    this.gifts=this.filterGiftsArr
+  }
   // findIndexById(id: string): number {
   //   let index = -1;
   //   for (let i = 0; i < this.gifts.length; i++) {

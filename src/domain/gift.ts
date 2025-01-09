@@ -5,4 +5,3 @@ export interface Gift {
     price?: number;
     image?: string;
 }
-  

@@ -9,11 +9,15 @@ import { AddGiftComponent } from './components/gift/add-gift/add-gift.component'
 import { UpdateGiftComponent } from './components/gift/update-gift/update-gift.component';
 import { BuyGiftsComponent } from './components/buy-gifts/buy-gifts.component';
 import { RegisterComponent } from './components/register/register.component';
+import { CartComponent } from './components/cart/cart.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'buyGifts', component: BuyGiftsComponent, pathMatch: 'full' },
   { path: 'register', component: RegisterComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: 'cart', component: CartComponent, pathMatch: 'full' },
   // {path: '', redirectTo:'start', pathMatch:'full'},
   {path: 'donors', component: ManageDonorComponent, children: [
       // {path:'', redirectTo: 'list', pathMatch:'full'},
