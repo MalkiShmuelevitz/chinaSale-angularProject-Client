@@ -34,9 +34,9 @@ export class NavComponent implements OnInit {
           { label: 'Gifts', icon: 'pi pi-gift', route: 'gifts' },
           { label: 'Donors', icon: 'pi pi-user', route: 'donors' },
           { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
-          { label: 'Cart', icon: 'pi pi-shopping-cart', route: 'cart' },
+          { label: 'Lottery', icon: 'pi pi-check-circle', route: 'lottery' },
           { label: 'Register', icon: 'pi pi-user-plus', route: 'register' },
           { label: 'Login', icon: 'pi pi-sign-in', route: 'login' },
-          ];
+        ];
     }
 }

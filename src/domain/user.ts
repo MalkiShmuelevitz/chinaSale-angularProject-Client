@@ -6,5 +6,7 @@ export interface User {
     password?:string,
     adress?: string;
     phone?: string;
+    creditCard?: string;
+    role?: string;
   }
   

@@ -55,6 +55,7 @@ export class UserService {
    return this.http.post<User>(this.BASE_URL+"/"+"login",user)
   }
   post(user:User):Observable<User>{
+    user.role='User'
     return this.http.post<User>(this.BASE_URL,user)
   }
  

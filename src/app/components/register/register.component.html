@@ -23,8 +23,21 @@
                     <label class="w-6rem">Phone</label>
                     <input formControlName="phone" pInputText id="phone" type="text" class="w-12rem" />
                 </div>
-                <p-button label="Register" icon="pi pi-user" styleClass="w-12rem mx-auto" (onClick)="register()" />
-                <!-- [disabled]="frmLogin.invalid" -->
+                <div class="flex flex-wrap justify-content-center align-items-center gap-2">
+                    <label class="w-6rem">Credit Card</label>
+                    <p-inputMask 
+                mask="9999 9999 9999 9999" 
+                formControlName="creditCard" 
+                slotChar=" "
+                
+                placeholder="Enter your credit card" />
+                <!-- (focus)="($event.target as HTMLInputElement).setSelectionRange(0, 0)" -->
+               
+                
+                </div>
+                <p-button label="Register" icon="pi pi-user" styleClass="w-12rem mx-auto" (onClick)="payment()" />
+
+             <!-- [disabled]="frmLogin.invalid" -->
         </div> 
      </form>
       

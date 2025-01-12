@@ -1,10 +1,15 @@
 <div class="card">
     <p-dataView #dv [value]="gifts"  [layout]="layout" >
-            <ng-template pTemplate="header">
+        <ng-template pTemplate="header">
                 <div class="flex justify-content-end">
                     <p-dataViewLayoutOptions [layout]="layout" />
+
                 </div>
-            </ng-template>
+                <div class="flex justify-content-start">
+                    <p-button severity="success" label="Payment" icon="pi pi-credit-card" class="mr-2" (onClick)="goToRegister()"/>
+
+                </div>
+        </ng-template>
             <ng-template let-gift pTemplate="grid" let-gifts>
                 <div class="grid grid-nogutter">
                     <div class="col-12 sm:col-6 md:col-3 xl:col-3 p-2" *ngFor="let gift of gifts">
@@ -45,15 +50,36 @@
                 <div class="grid grid-nogutter">
                     <div class="col-12" *ngFor="let item of gifts; let first = first" class="col-12">
                         <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                            <!-- <div class="md:w-10rem relative">
+                                <p-image 
+                                    class="block xl:block mx-auto border-round w-full"
+                                    [src]="'assets/' + item.image" 
+                                    [previewImageSrc]="'assets/' + item.image" 
+                                    [alt]="item.name" 
+                                    [ngStyle]="{ 'max-width': '300px', 'height': 'auto', 'width': 'auto' }" 
+                                    [preview]="true">
+                                </p-image>
+                            </div> -->
+                            
+                            
+                            
                             <div class="md:w-10rem relative">
                                 <img class="block xl:block mx-auto border-round w-full" [src]="'../../assets'+ '/' + item.image" [alt]="item.name" />
-
+                                <!-- <p-image 
+                                class="block xl:block mx-auto border-round w-full"
+                                src="'assets/' + item.image" 
+                                previewImageSrc="'assets/' + item.image" 
+                                alt="item.name" 
+                                width="250" 
+                                
+                                [preview]="true"
+                                /> -->
                                 <!-- <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute" [style.left.px]="4" [style.top.px]="4" /> -->
                             </div>
                             <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
                                 <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
                                     <div>
-                                        <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
+                                        <!-- <span class="font-medium text-secondary text-sm">{{ item.category }}</span> -->
                                         <div class="text-lg font-medium text-900 mt-2">{{ item.name }}</div>
                                     </div>
                                     <div class="surface-100 p-1" style="border-radius: 30px">

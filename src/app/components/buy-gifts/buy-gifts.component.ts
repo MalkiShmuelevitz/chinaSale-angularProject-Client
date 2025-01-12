@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { Gift } from '../../../domain/gift';
 import { GiftService } from '../../../service/gift.service';
 import { DataViewModule } from 'primeng/dataview';
@@ -7,11 +7,13 @@ import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { GiftForCart } from '../../../domain/giftForCart';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buy-gifts',
   templateUrl: './buy-gifts.component.html',
   styleUrl: './buy-gifts.component.scss',
+  encapsulation: ViewEncapsulation.None
   // providers: [GiftService],
 })
 export class BuyGiftsComponent {
@@ -20,7 +22,7 @@ export class BuyGiftsComponent {
   gifts!: Gift[];
   flag: boolean = false;
   giftService: GiftService = inject(GiftService)
-  // constructor(private giftService: GiftService) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
 
@@ -48,8 +50,6 @@ export class BuyGiftsComponent {
   giftsOnCart: GiftForCart[] = JSON.parse(localStorage.getItem('Cart') || '[]');
 
   addToCart(gift: Gift) {
-    //if userid in local storage
-    // if (localStorage.getItem("userName")) {
       const giftForCart: GiftForCart = { ...gift, quantity: 1 };
       if (this.giftsOnCart.length > 0) {
         this.giftsOnCart.forEach((i) => {
@@ -70,10 +70,10 @@ export class BuyGiftsComponent {
       }
       localStorage.setItem('Cart', JSON.stringify(this.giftsOnCart));
       this.giftsOnCart = JSON.parse(localStorage.getItem('Cart') || '[]');
-//     }
-// else{
-//   //navigate to login
-// }
+
+  }
+  goToRegister(){
+    this.router.navigate(['/register'])
   }
 }
 

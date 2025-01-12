@@ -9,24 +9,25 @@ import { AddGiftComponent } from './components/gift/add-gift/add-gift.component'
 import { UpdateGiftComponent } from './components/gift/update-gift/update-gift.component';
 import { BuyGiftsComponent } from './components/buy-gifts/buy-gifts.component';
 import { RegisterComponent } from './components/register/register.component';
-import { CartComponent } from './components/cart/cart.component';
+import { LotteryComponent } from './components/lottery/lottery.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthService } from '../service/auth.service';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '', component: HomeComponent, pathMatch: 'full'},
   { path: 'buyGifts', component: BuyGiftsComponent, pathMatch: 'full' },
   { path: 'register', component: RegisterComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
-  { path: 'cart', component: CartComponent, pathMatch: 'full' },
+  { path: 'lottery', component: LotteryComponent,canActivate:[AuthService], pathMatch: 'full' },
   // {path: '', redirectTo:'start', pathMatch:'full'},
-  {path: 'donors', component: ManageDonorComponent, children: [
+  {path: 'donors', component: ManageDonorComponent,canActivate:[AuthService], children: [
       // {path:'', redirectTo: 'list', pathMatch:'full'},
       { path: 'add', component: AddDonorComponent },
       { path: 'update', component: UpdateDonorComponent },
     ]
   },
   // {path: 'data-services', component: DataServicesComponent},
-  {path: 'gifts', component: TableGiftsDemoComponent, children: [
+  {path: 'gifts', component: TableGiftsDemoComponent,canActivate:[AuthService], children: [
       // {path:'', redirectTo:'first', pathMatch:'full'},
       { path: 'add', component: AddGiftComponent },
       { path: 'update', component: UpdateGiftComponent }
@@ -41,9 +42,6 @@ const routes: Routes = [
 })
 
 export class AppRoutingModule {
-  routes: Routes = [
-
-
-  ];
+ 
 
 }

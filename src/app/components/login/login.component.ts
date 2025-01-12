@@ -26,8 +26,8 @@ export class LoginComponent {
       this.user=data
       if(!this.user)
          alert("user not found go to register")     
-      else if(this.user.email){
-        localStorage.setItem("userName",this.user.email)
+      else if(this.user.role){
+        localStorage.setItem("user",this.user.role)
         
       }
     })

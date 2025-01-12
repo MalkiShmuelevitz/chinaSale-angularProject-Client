@@ -1,0 +1,13 @@
+/* סגנון עבור התמונה במצב רגיל */
+p-image img {
+    max-width: 300px !important;
+    height: auto !important;
+    width: auto !important;
+  }
+  
+  p-image.p-image-preview img {
+    max-width: none !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain; 
+  }

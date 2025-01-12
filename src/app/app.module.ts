@@ -126,8 +126,9 @@ import { BuyGiftsComponent } from './components/buy-gifts/buy-gifts.component';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './components/register/register.component';
-import { CartComponent } from './components/cart/cart.component';
+import { LotteryComponent } from './components/lottery/lottery.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthService } from '../service/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -141,10 +142,11 @@ import { LoginComponent } from './components/login/login.component';
     BuyGiftsComponent,
     NavComponent,
     RegisterComponent,
-    CartComponent,
+    LotteryComponent,
     LoginComponent
   ],
   imports: [
+    ToastModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -237,7 +239,6 @@ import { LoginComponent } from './components/login/login.component';
     TerminalModule,
     TieredMenuModule,
     TimelineModule,
-    ToastModule,
     ToggleButtonModule,
     ToolbarModule,
     TooltipModule,
@@ -373,7 +374,7 @@ import { LoginComponent } from './components/login/login.component';
     SharedModule 
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  providers: [GiftService],
+  providers: [GiftService,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
