@@ -1,14 +1,23 @@
 <p-toast />
+
+
 <ng-template #formTemplate pTemplate="content">
     <form [formGroup]="frmAddGift">
+        <img 
+        [src]="'assets'+'/' + frmAddGift.controls['image'].value" 
+        [alt]="frmAddGift.controls['image'].value" 
+        class="block m-auto pb-3 gift-image"
+        *ngIf="frmAddGift.controls['image'].value"
+         />
         <div class="field">
             <label for="name">Name</label>
             <input type="text" pInputText id="name" formControlName="name" required autofocus />
             <!-- [(ngModel)]="gift.name" -->
             <!-- *ngIf="submitted && !gift.name" -->
-            <!-- <small class="p-error" *ngIf="!gift.name">
+            <!-- <small class="p-error" *ngIf="!gift.name && ">
                 Name is required.
             </small> -->
+            <small class="p-error" *ngIf="frmAddGift.controls['name'].errors?.['required'] && frmAddGift.controls['name'].dirty">Name is required</small>
         </div>
         <!-- <div class="field">
             <label for="donor">Donor</label>
@@ -32,24 +41,57 @@
                     <p-tag [value]="option" />
                 </ng-template> -->
             </p-dropdown>
+            <small class="p-error" *ngIf="frmAddGift.controls['donor'].errors?.['required'] && frmAddGift.controls['donor'].dirty">Donor is required</small>
+
             <!-- optionValue="value"
             optionLabal="donor"
             placeholder="Select A Donor"
             [showClear]="true" -->
         </div>
-        <div class="field col">
+        <div class="field">
             <label for="price">Price</label>
-            <p-inputNumber id="price" formControlName="price" class="w-full" />
-            <!-- <input id="price" pInputText formControlName="price" /> -->
-            <!-- [(ngModel)]="gift.price" -->
-            <!-- <small class="p-error" *ngIf="submitted && !gift.price">
+            <p-inputNumber 
+            id="price" 
+            formControlName="price" 
+            class="w-full" 
+            mode="currency" 
+            currency="ILS" 
+            locale="en-US"
+            />
+            <!-- <input id="price" pInputText formControlName="price" />
+            [(ngModel)]="gift.price"
+            <small class="p-error" *ngIf="submitted && !gift.price">
                 Price is required.
             </small> -->
+            <small class="p-error" *ngIf="frmAddGift.controls['price'].errors?.['required'] && frmAddGift.controls['price'].dirty">Price is required</small>
+
         </div>
+        <!-- <div class="formgrid grid">
+            <div class="field col">
+                <label for="price">Price</label>
+                <p-inputNumber 
+                    id="price" 
+                    formControlName="price"
+                    mode="currency" 
+                    currency="ILS" 
+                    locale="en-US"/>
+            </div>
+            <div class="field col"> -->
+                <!-- <label for="quantity">Quantity</label>
+                <p-inputNumber 
+                    id="quantity" 
+                    /> -->
+                    <!-- <label for="image">Image</label>
+                    <input type="text" pInputText id="image" formControlName="image" />
+                 -->
+            <!-- </div> 
+        </div> -->
         <div class="field">
             <label for="image">Image</label>
-            <input type="text" pInputText id="image" formControlName="image" required />
-<!--             
+            <input type="text" pInputText id="image" formControlName="image"/> 
+            <!-- <p-button icon="pi pi-upload" /> -->
+        
+            <!--             
             <div class="card flex justify-content-center">
                 <p-fileUpload 
                     name="demo[]" 

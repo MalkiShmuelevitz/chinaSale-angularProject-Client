@@ -35,7 +35,7 @@ export class UpdateGiftComponent {
       name: new FormControl("", [Validators.required]),
       donor: new FormControl("", [Validators.required]),
       price: new FormControl(10, [Validators.required]),
-      image: new FormControl("", [Validators.required])
+      image: new FormControl("")
       // name: new FormControl(this.giftFromManage.name, [Validators.required]),
       // donor: new FormControl(this.giftFromManage.donor, [Validators.required]),
       // price: new FormControl(this.giftFromManage.price, [Validators.required]),
@@ -49,7 +49,7 @@ export class UpdateGiftComponent {
         name: new FormControl(this.gift.name, [Validators.required]),
         donor: new FormControl(this.gift.donor, [Validators.required]),
         price: new FormControl(this.gift.price, [Validators.required]),
-        image: new FormControl(this.gift.image, [Validators.required]),
+        image: new FormControl(this.gift.image),
       });
     }
     if (changes['donors'] && this.frmEditGift) {
@@ -90,7 +90,19 @@ export class UpdateGiftComponent {
       name: this.frmEditGift.controls['name'].value,
       donor: this.frmEditGift.controls['donor'].value,
       price: this.frmEditGift.controls['price'].value,
-      image: this.frmEditGift.controls['image'].value
+      image: this.frmEditGift.controls['image'].value,
+      usersList:[],
+      //ערכים פיקטיביים....
+      winner: {
+        id:1,
+        phone:"0",
+        adress:"b",
+        creditCard:"h",
+        role:"User",
+        email:"2@2.2",
+        fullName:"hjgh",
+        password:"6789"
+      }
     }
     if (this.gift.id) {//if update
       let ind = this.gifts.findIndex(g => g.name == this.gift.name)
@@ -101,15 +113,15 @@ export class UpdateGiftComponent {
             this.gifts = data 
             this.giftsToManage.emit(this.gifts)
           })
-
-        })
-
-        this.messegeServiceAdd.emit({
+          this.messegeServiceAdd.emit({
           severity: 'success',
           summary: 'Successful',
           detail: 'Gift Updated',
           life: 3000,
         })
+        })
+       
+        
         // this.messageService.add({
         //   severity: 'success',
         //   summary: 'Successful',

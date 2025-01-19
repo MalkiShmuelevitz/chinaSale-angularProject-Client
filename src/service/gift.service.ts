@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Gift } from '../domain/gift';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { GiftForCart } from '../domain/giftForCart';
 
 @Injectable({
   providedIn: 'root'
@@ -46,11 +47,23 @@ export class GiftService {
   getGifts():Observable<Gift[]>{
     return this.http.get<Gift[]>(this.BASE_URL)
   }
+  getWithRandom():Observable<Gift[]>{
+    return this.http.get<Gift[]>(this.BASE_URL+"/random")
+  }
   getById(id:number):Observable<Gift>{
     return this.http.get<Gift>(this.BASE_URL + "/" + id)
   }
   post(gift:Gift):Observable<Gift>{
     return this.http.post<Gift>(this.BASE_URL,gift)
+  }
+  postForCart(gifts:GiftForCart[],username:string):Observable<Gift[]>{
+    console.log(username);
+    console.log(gifts);
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+    console.log(this.BASE_URL+"/"+username,gifts,{headers});
+    return this.http.post<Gift[]>(this.BASE_URL+"/"+"users"+"?username="+username,gifts,{headers})
   }
   update(id:number,gift:Gift):Observable<Gift>{
     return this.http.put<Gift>(this.BASE_URL+"/"+id,gift)

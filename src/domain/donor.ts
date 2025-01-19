@@ -6,6 +6,6 @@ export interface Donor {
     adress?: string;
     phone?: string;
     email?: string;
-   
+    gifts?:Gift[];
   }
   

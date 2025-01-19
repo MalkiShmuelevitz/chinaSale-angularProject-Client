@@ -21,6 +21,8 @@ export class ManageDonorComponent {
   ngOnInit(){
     this.srvDonor.getDonors().subscribe((data)=>{
       this.donors=data
+      console.log(this.donors);
+      
     })
   }
 

@@ -4,7 +4,7 @@ import { MegaMenuModule } from 'primeng/megamenu';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { TabMenuModule } from 'primeng/tabmenu';
 
 @Component({
@@ -15,7 +15,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 export class NavComponent implements OnInit {
   // items: MenuItem[] | undefined;
 
-  // constructor(private router: Router) {}
+  constructor(private router: Router) {}
 
   // ngOnInit() {
   //     this.items = [
@@ -25,18 +25,40 @@ export class NavComponent implements OnInit {
   //         { label: 'Buy Gifts', icon: 'pi pi-home', route: 'buyGifts' },
   //         ];
   // }
-
+  username!:string
+  usernameStart!:string
   items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
-           this.items = [
-          { label: 'Home', icon: 'pi pi-home', route: '' },
-          { label: 'Gifts', icon: 'pi pi-gift', route: 'gifts' },
-          { label: 'Donors', icon: 'pi pi-user', route: 'donors' },
-          { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
-          { label: 'Lottery', icon: 'pi pi-check-circle', route: 'lottery' },
-          { label: 'Register', icon: 'pi pi-user-plus', route: 'register' },
-          { label: 'Login', icon: 'pi pi-sign-in', route: 'login' },
-        ];
+      localStorage.setItem("Cart", '[]')
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          if(localStorage.getItem("userrole")=='Admin'){
+            this.items = [
+              { label: 'Home', icon: 'pi pi-home', route: '' },
+              { label: 'Gifts', icon: 'pi pi-gift', route: 'gifts' },
+              { label: 'Donors', icon: 'pi pi-user', route: 'donors' },
+              { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
+              { label: 'Lottery', icon: 'pi pi-trophy', route: 'lottery' },
+              { label: 'Login', icon: 'pi pi-sign-in', route: 'login' },
+            ];
+          }
+          else {
+            this.items = [
+                  { label: 'Home', icon: 'pi pi-home', route: '' },
+                  { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
+                  { label: 'Login', icon: 'pi pi-sign-in', route: 'login' },
+                ];
+          }
+          if(localStorage.getItem("userfullname"))   {
+            this.username=localStorage.getItem("userfullname") || ""
+            this.usernameStart=localStorage.getItem("userfullname")?.substring(0,1).toUpperCase() || ""
+          }
+        }
+      });
+      
+    }
+    onClick(){
+      // alert("1111")
     }
 }

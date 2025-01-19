@@ -12,8 +12,8 @@ export class AuthService implements CanActivate{
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if(localStorage.getItem("user")){
-      if (localStorage.getItem("user")=="Admin") {
+    if(localStorage.getItem("userrole")){
+      if (localStorage.getItem("userrole")=="Admin") {
         return true;  // אם המשתמש מחובר, נותנים לו לגשת לדף
       } else {
         return false;  // לא מאפשרים גישה לדף

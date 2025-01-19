@@ -81,8 +81,20 @@
                     cart
                 </span>
             </a> -->
-            <p-button severity="secondary" label="Login" icon="pi pi-user" class="mr-2" />
-            <p-button severity="secondary" label="Admin" icon="pi pi-user" class="mr-2" />
+            <!-- <p-button severity="secondary" label="Login" icon="pi pi-user" class="mr-2" /> -->
+            <!-- <div class="card flex align-items-center"> -->
+                <p-chip styleClass="pl-0 pr-3">
+                    <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center" 
+                    (click)="onClick()"
+                    >
+                        {{usernameStart}}
+                    </span>
+                    <span class="ml-2 font-medium">
+                        {{username}}
+                    </span>
+                </p-chip>
+            <!-- </div> -->
+            <!-- <p-button severity="secondary" label="Admin" icon="pi pi-user" class="mr-2" /> -->
             <!-- <p-avatar icon="pi pi-gift" image="pi pi-shopping-cart" shape="circle" /> -->
         </ng-template>
     </p-megaMenu>

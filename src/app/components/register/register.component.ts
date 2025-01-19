@@ -2,9 +2,11 @@ import { Component, inject } from '@angular/core';
 import { UserService } from '../../../service/user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../domain/user';
-import { GiftWithUserService } from '../../../service/giftWithUser.service';
 import { GiftForCart } from '../../../domain/giftForCart';
 import { GiftWithUser } from '../../../domain/giftWithUser';
+import { GiftService } from '../../../service/gift.service';
+import { Gift } from '../../../domain/gift';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,11 +15,11 @@ import { GiftWithUser } from '../../../domain/giftWithUser';
 })
 export class RegisterComponent {
   srvUser:UserService=inject(UserService)
-  srvGiftWithUser:GiftWithUserService=inject(GiftWithUserService)
+  srvGift:GiftService=inject(GiftService)
   frmRegister!:FormGroup
   user!:User
-  gifts!: GiftWithUser[];
-
+  gifts!: Gift[];
+  constructor(private router:Router){}
   ngOnInit(){
     this.frmRegister=new FormGroup({ 
       email:new FormControl("",[Validators.required,Validators.email]),
@@ -46,13 +48,25 @@ export class RegisterComponent {
     )
     .subscribe((data)=>{
       this.user=data
-      this.srvGiftWithUser.post(
+      this.srvGift.postForCart(
         this.currentGifts,
         this.frmRegister.controls["email"].value)
       .subscribe((data)=>{
         this.gifts=data
-        localStorage.clear()
-      })
+        // if (!this.user)
+        //   alert("User not found go to register")
+        // else 
+        if (this.user.role) {
+          localStorage.setItem("userrole", this.user.role)
+        }
+        if (this.user.email) {
+          localStorage.setItem("username", this.user.email)
+        }
+        if (this.user.fullName) {
+          localStorage.setItem("userfullname", this.user.fullName)
+        }
+        this.router.navigate(['/'])
+        })
     })
   }
 }

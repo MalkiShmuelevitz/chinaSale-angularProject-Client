@@ -8,24 +8,32 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { GiftForCart } from '../../../domain/giftForCart';
 import { Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-buy-gifts',
   templateUrl: './buy-gifts.component.html',
   styleUrl: './buy-gifts.component.scss',
-  encapsulation: ViewEncapsulation.None
-  // providers: [GiftService],
+  encapsulation: ViewEncapsulation.None,
+  providers: [GiftService,MessageService,ConfirmationService]
 })
 export class BuyGiftsComponent {
   layout: 'list' | 'grid' = 'grid';
   // layout: string = 'grid';
-  gifts!: Gift[];
+  gifts!: GiftForCart[];
   flag: boolean = false;
+  srvGift:GiftService=inject(GiftService)
+
   giftService: GiftService = inject(GiftService)
-  constructor(private router: Router) {}
+  quantity:number=1
+  constructor(
+    private router: Router,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
+
+    ) {}
 
   ngOnInit() {
-
     // data.slice(0, 12)
     this.giftService.getGifts().subscribe((data) => (this.gifts = data));
   }
@@ -48,32 +56,115 @@ export class BuyGiftsComponent {
 
   // giftsOnCart: Gift[]=JSON.parse(localStorage.getItem('Cart') || '[]');
   giftsOnCart: GiftForCart[] = JSON.parse(localStorage.getItem('Cart') || '[]');
-
-  addToCart(gift: Gift) {
-      const giftForCart: GiftForCart = { ...gift, quantity: 1 };
-      if (this.giftsOnCart.length > 0) {
-        this.giftsOnCart.forEach((i) => {
-          if (i.id == giftForCart.id) {
-            if (i.quantity) {
-              i.quantity++
-              this.flag = true
-            }
-          }
+  addToCart(giftForCart: GiftForCart) {
+    giftForCart.usersList=[]
+    giftForCart.winner={
+        id: 1,
+        phone: "0",
+        adress: "b",
+        creditCard: "h",
+        role: "User",
+        email: "2@2.2",
+        fullName: "hjgh",
+        password: "6789"
+    }
+    const index = this.giftsOnCart.findIndex((g)=>
+      g.id===giftForCart.id
+    )
+    if(index>=0){
+      this.giftsOnCart[index]=giftForCart
+      this.messageService.add(
+        {
+            severity: 'success',
+            summary: 'Successful',
+            detail: `${giftForCart.quantity} of ${giftForCart.name} update in cart successfully!`,
+            life: 3000,
         })
-        if (!this.flag) {
-          this.giftsOnCart.push(giftForCart)
+    }
+    else {
+      this.giftsOnCart.push(giftForCart)
+      this.messageService.add(
+      {
+          severity: 'success',
+          summary: 'Successful',
+          detail: `${giftForCart.quantity} of ${giftForCart.name} add to cart successfully!`,
+          life: 3000,
         }
-        this.flag = false
-      }
-      else {
-        this.giftsOnCart.push(giftForCart)
-      }
-      localStorage.setItem('Cart', JSON.stringify(this.giftsOnCart));
-      this.giftsOnCart = JSON.parse(localStorage.getItem('Cart') || '[]');
-
+      )
+    }
+    localStorage.setItem('Cart', JSON.stringify(this.giftsOnCart));
+    this.giftsOnCart = JSON.parse(localStorage.getItem('Cart') || '[]');
   }
+
+
+  currentGifts:GiftForCart[]=[]
+
   goToRegister(){
-    this.router.navigate(['/register'])
+    if(localStorage.getItem("username")){
+      this.confirmationService.confirm({
+        message: 'You are adding a new order to ' + localStorage.getItem("username") + ' to confirm?',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          const username = localStorage.getItem("username") || ""
+          this.currentGifts = JSON.parse(localStorage.getItem("Cart") || '[]')
+          this.srvGift.postForCart(
+            this.currentGifts,
+            username
+          ).subscribe((data)=>{
+              this.gifts=data
+            })
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: `The order of ${localStorage.getItem("username")} was successfully received.`,
+              life: 3000,
+            });
+          
+          // this.srvGiftWithUser.post(
+          //   this.currentGifts,
+          //   username
+          //   )
+          // .subscribe((data)=>{
+          //   this.gifts=data
+          // })
+          // this.messageService.add({
+          //   severity: 'success',
+          //   summary: 'Successful',
+          //   detail: `The order of ${localStorage.getItem("username")} was successfully received.`,
+          //   life: 3000,
+          // });
+        },
+      })
+    }
+    else {
+      this.router.navigate(['/register'])
+    }
+    
   }
 }
 
+
+// addToCart(gift: Gift) {
+//   const giftForCart: GiftForCart = { ...gift, quantity: 1 };
+//   if (this.giftsOnCart.length > 0) {
+//     this.giftsOnCart.forEach((i) => {
+//       if (i.id == giftForCart.id) {
+//         if (i.quantity) {
+//           i.quantity++
+//           this.flag = true
+//         }
+//       }
+//     })
+//     if (!this.flag) {
+//       this.giftsOnCart.push(giftForCart)
+//     }
+//     this.flag = false
+//   }
+//   else {
+//     this.giftsOnCart.push(giftForCart)
+//   }
+//   localStorage.setItem('Cart', JSON.stringify(this.giftsOnCart));
+//   this.giftsOnCart = JSON.parse(localStorage.getItem('Cart') || '[]');
+
+// }

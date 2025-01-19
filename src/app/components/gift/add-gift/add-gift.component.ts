@@ -6,6 +6,7 @@ import { DonorService } from '../../../../service/donor.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Donor } from '../../../../domain/donor';
 import { FileUploadEvent } from 'primeng/fileupload';
+import { UserService } from '../../../../service/user.service';
 // import { UplodeService } from '../../../../service/uplode.service';
 interface UploadEvent {
   originalEvent: Event;
@@ -42,14 +43,13 @@ export class AddGiftComponent {
       name: new FormControl("", [Validators.required]),
       donor: new FormControl("", [Validators.required]),
       price: new FormControl(10, [Validators.required]),
-      image: new FormControl("", [Validators.required])
+      image: new FormControl("")
     })
   }
-  
 
- 
 
   ngOnInit() {
+
     this.srvDonor.getDonors().subscribe((data) => {
       this.donors = data
       this.donors2 = this.donors.map((d) => {
@@ -63,12 +63,24 @@ export class AddGiftComponent {
 
   saveGift() {
     this.gifts = this.giftsFromManage
+
     this.gift = {
       // id: this.gift.id,
       name: this.frmAddGift.controls['name'].value,
       donor: this.frmAddGift.controls['donor'].value,
       price: this.frmAddGift.controls['price'].value,
-      image: this.frmAddGift.controls['image'].value
+      image: this.frmAddGift.controls['image'].value,
+      usersList: [],
+      winner: {
+        id: 1,
+        phone: "0",
+        adress: "b",
+        creditCard: "h",
+        role: "User",
+        email: "2@2.2",
+        fullName: "hjgh",
+        password: "6789"
+      }
     }
     console.log(this.gift);
 
@@ -85,18 +97,25 @@ export class AddGiftComponent {
           this.srvGift.getGifts().subscribe((data) => {
             this.gifts = data
             this.giftsToManage.emit(this.gifts)
-
+            // this.frmAddGift.reset()
+            // this.frmAddGift = new FormGroup({
+            //   name: new FormControl("", [Validators.required]),
+            //   donor: new FormControl("", [Validators.required]),
+            //   price: new FormControl(10, [Validators.required]),
+            //   image: new FormControl("")
+            // })
+            this.messegeServiceAdd.emit(
+              {
+                severity: 'success',
+                summary: 'Successful',
+                detail: 'Gift Created',
+                life: 3000,
+              }
+            )
           })
         })
         // this.gifts = this.srvGift.getGifts()
-        this.messegeServiceAdd.emit(
-          {
-            severity: 'success',
-            summary: 'Successful',
-            detail: 'Gift Created',
-            life: 3000,
-          }
-        )
+
         // this.messageService.add({
         //   severity: 'success',
         //   summary: 'Successful',
@@ -128,72 +147,79 @@ export class AddGiftComponent {
       name: new FormControl("", [Validators.required]),
       donor: new FormControl("", [Validators.required]),
       price: new FormControl(10, [Validators.required]),
-      image: new FormControl("", [Validators.required])
+      image: new FormControl("")
     })
     this.giftDialogNew.emit(false)
+
   }
   // }
 
   hideDialog() {
+    this.frmAddGift = new FormGroup({
+      name: new FormControl("", [Validators.required]),
+      donor: new FormControl("", [Validators.required]),
+      price: new FormControl(10, [Validators.required]),
+      image: new FormControl("")
+    })
     this.giftDialogNew.emit(false)
     // this.submitted = false;
   }
 
-    // constructor(private messageService: MessageService) {}
-    // uploadedFiles: any[] = [];
+  // constructor(private messageService: MessageService) {}
+  // uploadedFiles: any[] = [];
 
-    // onUpload(event:FileUploadEvent) {
-    //     for(let file of event.files) {
-    //         this.uploadedFiles.push(file);
-    //     }
+  // onUpload(event:FileUploadEvent) {
+  //     for(let file of event.files) {
+  //         this.uploadedFiles.push(file);
+  //     }
 
-    //     this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
-    // }
+  //     this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+  // }
 
-    ////////////////////////////////////
-    // uploadedFiles: any[] = [];
-    // srvUplode:UplodeService=inject(UplodeService)
-    // onUpload(event: any) {
-    //   const formData = new FormData();
-    //   for (let file of event.files) {
-    //     formData.append('file', file);
-    //   }
-    //   this.srvUplode.post(formData)
-    // }
-//////////////////////////////////////////////
-    // onUpload(event: any) {
-      // const formData = new FormData();
-      // for (let file of event.files) {
-      //   formData.append('file', file);
-      // }
-  
-      // // העלאת הקובץ לשרת
-      // this.http.post('/upload', formData).subscribe(
-      //   (response: any) => {
-      //     this.messageService.add({
-      //       severity: 'info',
-      //       summary: 'File Uploaded',
-      //       detail: `File uploaded successfully to ${response.filePath}`
-      //     });
-      //     console.log('Upload response:', response);
-      //   },
-      //   (error) => {
-      //     this.messageService.add({
-      //       severity: 'error',
-      //       summary: 'Upload Failed',
-      //       detail: 'There was an error uploading the file.'
-      //     });
-      //     console.error('Upload error:', error);
-      //   }
-      // );
-    // }
-    
+  ////////////////////////////////////
+  // uploadedFiles: any[] = [];
+  // srvUplode:UplodeService=inject(UplodeService)
+  // onUpload(event: any) {
+  //   const formData = new FormData();
+  //   for (let file of event.files) {
+  //     formData.append('file', file);
+  //   }
+  //   this.srvUplode.post(formData)
+  // }
+  //////////////////////////////////////////////
+  // onUpload(event: any) {
+  // const formData = new FormData();
+  // for (let file of event.files) {
+  //   formData.append('file', file);
+  // }
+
+  // // העלאת הקובץ לשרת
+  // this.http.post('/upload', formData).subscribe(
+  //   (response: any) => {
+  //     this.messageService.add({
+  //       severity: 'info',
+  //       summary: 'File Uploaded',
+  //       detail: `File uploaded successfully to ${response.filePath}`
+  //     });
+  //     console.log('Upload response:', response);
+  //   },
+  //   (error) => {
+  //     this.messageService.add({
+  //       severity: 'error',
+  //       summary: 'Upload Failed',
+  //       detail: 'There was an error uploading the file.'
+  //     });
+  //     console.error('Upload error:', error);
+  //   }
+  // );
+  // }
+
 
   // onUpload(event: any) {
   //   const file = event.files[0];
   //   const formData = new FormData();
   //   formData.append('file', file);
-  
+
   //   this.http.post('http://localhost:3000/upload', formData).subscribe((response) => {
   //     console.log('Upload successful!', response);
   //   });

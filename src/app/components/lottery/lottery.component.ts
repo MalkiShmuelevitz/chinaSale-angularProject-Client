@@ -5,7 +5,6 @@ import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { Gift } from '../../../domain/gift';
 import { GiftService } from '../../../service/gift.service';
-import { GiftWithUserService } from '../../../service/giftWithUser.service';
 import { GiftWithUser } from '../../../domain/giftWithUser';
 import { User } from '../../../domain/user';
 @Component({
@@ -14,28 +13,35 @@ import { User } from '../../../domain/user';
   styleUrl: './lottery.component.scss'
 })
 export class LotteryComponent {
-  gifts!: GiftWithUser[];
+  gifts!: Gift[];
   users:User[]=[]
-  srvGiftsWithUser=inject(GiftWithUserService)
+  srvGift=inject(GiftService)
   dialogShowUsers: boolean = false;
-    constructor(private giftService: GiftService) {}
+  constructor(private giftService: GiftService) {}
 
     ngOnInit() {
-      this.srvGiftsWithUser.getGifts().subscribe((data)=>{
+      // this.srvGiftsWithUser.getGifts().subscribe((data)=>{
+      //   this.gifts=data;
+      //   // console.log(this.gifts);
+      // })
+      this.srvGift.getGifts().subscribe((data)=>{
         this.gifts=data;
-        // console.log(this.gifts);
+        console.log(this.gifts);
+        
       })
     }
     getWinners(){
-      this.srvGiftsWithUser.getWithRandom().subscribe((data)=>{
-        this.gifts=data;
-        // console.log(this.gifts);
+      // this.srvGiftsWithUser.getWithRandom().subscribe((data)=>{
+      //   this.gifts=data;
+      //   // console.log(this.gifts);
+      // })
+      this.srvGift.getWithRandom().subscribe((data)=>{
+        this.gifts=data
       })
     }
-    showUsers(gift:GiftWithUser){
+    showUsers(gift:Gift){
       this.users = gift.usersList || []
       console.log(gift);
-      
       this.dialogShowUsers=true
     }
     // getSeverity (gift: Gift) {

@@ -1,0 +1,8 @@
+.gift-image {
+    max-width: 60%;  /* הגדרת רוחב מקסימלי לתמונה */
+    max-height: 60%; /* הגדרת גובה מקסימלי לתמונה */
+    width: auto;       /* רוחב מותאם */
+    height: auto;      /* גובה מותאם */
+    display: block;
+    margin: 0 auto;    /* ממקם את התמונה במרכז */
+  }

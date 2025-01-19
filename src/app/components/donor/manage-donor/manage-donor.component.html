@@ -6,6 +6,7 @@
     <span>{{d.adress}} </span>
     <span>{{d.phone}} </span>
     <span>{{d.email}} </span>
+    <span>{{d.gifts}}</span>
    <span>
     @for(dg of srvGift.getGiftsToDonor(d.fullName);track $index){
         <span>{{dg.name}}</span>

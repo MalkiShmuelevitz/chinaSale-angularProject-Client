@@ -24,9 +24,11 @@
   [globalFilterFields]="['id', 'name', 'donor', 'price']"
   [tableStyle]="{ 'min-width': '75rem' }" 
   [(selection)]="selectedGifts" 
-  [rowHover]="true" dataKey="id"
-  currentPageReportTemplate="page {first} of {totalRecords}" 
+  [rowHover]="true" 
+  dataKey="id"
+  currentPageReportTemplate="gifts {first} from {totalRecords}" 
   [showCurrentPageReport]="true">
+
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
         <h2 class="m-0">Manage Gifts</h2>
@@ -119,12 +121,12 @@
 
   </p-table>
   <p-dialog [(visible)]="giftDialogNew" [style]="{ width: '450px' }" header="Add Gift" [modal]="true"
-    styleClass="p-fluid">
+    styleClass="p-fluid" [closable]="false">
     <app-add-gift [giftsFromManage]="gifts" (giftsToManage)="rendeGifts($event)"
       (messegeServiceAdd)="messegeService($event)" (giftDialogNew)="hideDialogNew($event)"></app-add-gift>
   </p-dialog>
   <p-dialog [(visible)]="giftDialogEdit" [style]="{ width: '450px' }" header="Edit Gift" [modal]="true"
-    styleClass="p-fluid">
+    styleClass="p-fluid" [closable]="false">
     <app-update-gift (giftsToManage)="rendeGifts($event)" [giftFromManage]="gift"
       (messegeServiceAdd)="messegeService($event)" (giftDialogEdit)="hideDialogEdit($event)"></app-update-gift>
   </p-dialog>

@@ -1,12 +1,18 @@
 <p-toast />
 <ng-template #formTemplate pTemplate="content">
     <form [formGroup]="frmEditGift">
-        <img 
+        <!-- <img 
         [src]="'assets'+'/' + gift.image" 
         [alt]="gift.image" 
         class="block m-auto pb-3 gift-image"
         *ngIf="gift && gift.image"
-         />
+         /> -->
+         <img 
+         [src]="'assets'+'/' + frmEditGift.controls['image'].value" 
+         [alt]="frmEditGift.controls['image'].value" 
+         class="block m-auto pb-3 gift-image"
+         *ngIf="frmEditGift.controls['image'].value"
+          />
         <div class="field">
             <label for="name">Name</label>
             <input type="text" pInputText id="name" formControlName="name" required autofocus />
@@ -15,6 +21,8 @@
             <!-- <small class="p-error" *ngIf="!gift.name">
                 Name is required.
             </small> -->
+            <small class="p-error" *ngIf="frmEditGift.controls['name'].errors?.['required'] && frmEditGift.controls['name'].dirty">Name is required</small>
+
         </div>
         <!-- <div class="field">
             <label for="donor">Donor</label>
@@ -48,26 +56,37 @@
                     <p-tag [value]="option" />
                 </ng-template>
             </p-dropdown> -->
+            <small class="p-error" *ngIf="frmEditGift.controls['donor'].errors?.['required'] && frmEditGift.controls['donor'].dirty">Donor is required</small>
+
         </div>
-        <div class="field col">
+        <div class="field">
             <label for="price">Price</label>
-            <p-inputNumber id="price" formControlName="price" />
+            <p-inputNumber 
+            id="price" 
+            formControlName="price" 
+            class="w-full" 
+            mode="currency" 
+            currency="ILS" 
+            locale="en-US"
+            />
             <!-- <input id="price" pInputText formControlName="price" /> -->
             <!-- [(ngModel)]="gift.price" -->
             <!-- <small class="p-error" *ngIf="submitted && !gift.price">
                 Price is required.
             </small> -->
+            <small class="p-error" *ngIf="frmEditGift.controls['price'].errors?.['required'] && frmEditGift.controls['price'].dirty">Price is required</small>
+
         </div>
-        <!-- <div class="field"> -->
+        <div class="field">
 
         <label for="image">Image</label>
-            <input type="text" pInputText id="image" formControlName="image" required />
+            <input type="text" pInputText id="image" formControlName="image" />
         <!-- [(ngModel)]="gift.image" -->
         <!-- *ngIf="submitted && !gift.image" -->
         <!-- <small class="p-error" *ngIf="!gift.image">
                 Image is required.
             </small> -->
-        <!-- </div> -->
+        </div>
     </form>
 </ng-template>
 

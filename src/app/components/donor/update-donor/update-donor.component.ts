@@ -37,7 +37,7 @@ export class UpdateDonorComponent {
       adress:this.updateDonorForm.controls['adress'].value,
       phone:this.updateDonorForm.controls['phone'].value,
       email:this.updateDonorForm.controls['email'].value
-    }
+  }
     let ind=this.donors.findIndex(d=>d.fullName==this.donor.fullName)
     if(ind==-1 || this.donors[ind].id==this.donor.id){
       this.srvDonor.put(this.donor).subscribe((data)=>{})

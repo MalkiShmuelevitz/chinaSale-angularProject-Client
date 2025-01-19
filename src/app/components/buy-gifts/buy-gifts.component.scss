@@ -1,13 +1,45 @@
 /* סגנון עבור התמונה במצב רגיל */
-p-image img {
-    max-width: 300px !important;
-    height: auto !important;
-    width: auto !important;
-  }
+// p-image img {
+//     max-width: 300px !important;
+//     height: auto !important;
+//     width: auto !important;
+//   }
   
-  p-image.p-image-preview img {
-    max-width: none !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    object-fit: contain; 
-  }
+//   p-image.p-image-preview img {
+//     max-width: none !important;
+//     width: 100vw !important;
+//     height: 100vh !important;
+//     object-fit: contain; 
+//   }
+// .single-otp .p-inputtext:not(:first-child) {
+//     display: none; 
+// }
+// .custom-image {
+//   display: block;
+//   max-width: 250px; /* הרוחב המוגדר */
+//   margin: auto; /* למרכז */
+//   border-radius: 50%; /* לדוגמה, מעגל */
+//   width: 100%; /* מתאים לגודל המיכל */
+//   height: auto;
+
+// }
+p-inputNumber input {
+    width: 40px !important;
+}
+// p-inputNumber span input p-inputtext:enabled:focus{
+//   outline: 0 none;
+//   outline-offset: 0;
+//   box-shadow: 0 0 0 0 ;
+//   border-color: none;
+// }
+.p-inputtext:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0 ;
+  // border-color: #ffffff;
+}
+// p-inputNumber button {
+//   background-color: white !important;
+//   color: black;
+//   // border: 1px solid #c8cbce;
+// }

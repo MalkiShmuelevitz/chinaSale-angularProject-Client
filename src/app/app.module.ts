@@ -113,7 +113,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GiftService } from '../service/gift.service';
 import { AvatarModule } from 'primeng/avatar';
-import { MessageService, SharedModule } from 'primeng/api';
+import { ConfirmationService, MessageService, SharedModule } from 'primeng/api';
 import { TableGiftsDemoComponent } from './components/gift/table-gifts-demo/table-gifts-demo.component'; 
 import { ManageDonorComponent } from './components/donor/manage-donor/manage-donor.component'; 
 import { AddDonorComponent } from './components/donor/add-donor/add-donor.component'; 
@@ -374,7 +374,7 @@ import { AuthService } from '../service/auth.service';
     SharedModule 
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  providers: [GiftService,MessageService],
+  providers: [GiftService,MessageService,ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

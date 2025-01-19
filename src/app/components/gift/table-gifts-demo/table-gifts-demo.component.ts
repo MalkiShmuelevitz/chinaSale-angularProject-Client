@@ -42,6 +42,8 @@ export class TableGiftsDemoComponent  {
   ) {
   }
   ngOnInit() {
+    console.log(this.gifts);
+    
     this.srvDonor.getDonors().subscribe((data) => {
       this.donors = data
       this.donors2 = this.donors.map((d) => {
@@ -51,6 +53,8 @@ export class TableGiftsDemoComponent  {
     this.srvGift.getGifts().subscribe((data) => {
       this.gifts = data
       console.log(this.gifts);
+      this.basicFilterGiftsArr=this.gifts
+
     })
 
     // this.donors = this.srvDonor.getAll()
@@ -85,7 +89,8 @@ export class TableGiftsDemoComponent  {
     this.gift = {};
     this.submitted = false;
     this.giftDialogNew = true;
-    console.log(this.gift)
+    // console.log(this.gift)
+
   }
   messegeService(message: {}) {
     this.messageService.add(message)
@@ -120,6 +125,7 @@ export class TableGiftsDemoComponent  {
   }
   rendeGifts(giftsFrom: Gift[]) {
     this.gifts = giftsFrom
+    this.basicFilterGiftsArr=this.gifts
   }
   editGift(gift: Gift) {
     this.gift = { ...gift };
@@ -143,6 +149,8 @@ export class TableGiftsDemoComponent  {
 
           this.srvGift.getGifts().subscribe((data) => {
             this.gifts = data
+            this.basicFilterGiftsArr=this.gifts
+
           })
         })
 
@@ -159,9 +167,13 @@ export class TableGiftsDemoComponent  {
 
   hideDialogNew(f: boolean) {
     this.giftDialogNew = f
+    console.log(this.gifts);
+
   }
   hideDialogEdit(f: boolean) {
     this.giftDialogEdit = f
+    console.log(this.gifts);
+
   }
   filterGifts(target:any){
     this.gifts = this.basicFilterGiftsArr
