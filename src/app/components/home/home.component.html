@@ -1,1 +1,23 @@
-<p>home works!</p>
+<div class="card">
+    <div class="mb-3 font-large text-center">
+        POPULAR AWARDS
+    </div>
+    <p-carousel 
+        [value]="images" 
+        [numVisible]="2" 
+        [numScroll]="2" 
+        [circular]="true" 
+        [autoplay]="true" 
+        [autoplayInterval]="3000" 
+        [responsiveOptions]="responsiveOptions">
+            <ng-template let-image pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 p-3">
+                        <div class="relative mx-auto">
+                            <img [src]="image" 
+                                [alt]="image" 
+                                class="w-full border-round" />
+                        </div>
+                </div>
+            </ng-template>
+    </p-carousel>
+</div>

@@ -129,6 +129,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { LotteryComponent } from './components/lottery/lottery.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from '../service/auth.service';
+import { GlobalService } from '../service/global.service';
+import { CartComponent } from './components/cart/cart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -143,9 +145,11 @@ import { AuthService } from '../service/auth.service';
     NavComponent,
     RegisterComponent,
     LotteryComponent,
-    LoginComponent
+    LoginComponent,
+    CartComponent
   ],
   imports: [
+    
     ToastModule,
     BrowserModule,
     AppRoutingModule,
@@ -374,7 +378,7 @@ import { AuthService } from '../service/auth.service';
     SharedModule 
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  providers: [GiftService,MessageService,ConfirmationService],
+  providers: [GiftService,MessageService,ConfirmationService,GlobalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

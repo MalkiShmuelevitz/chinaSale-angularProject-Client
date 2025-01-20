@@ -1,24 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
+import { GlobalService } from './global.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService implements CanActivate{
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private globalService:GlobalService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if(localStorage.getItem("userrole")){
-      if (localStorage.getItem("userrole")=="Admin") {
-        return true;  // אם המשתמש מחובר, נותנים לו לגשת לדף
-      } else {
-        return false;  // לא מאפשרים גישה לדף
-      }
-    }
-    return false;
+      return this.globalService.getIsAdmin();
   }
 }

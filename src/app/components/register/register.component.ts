@@ -7,6 +7,7 @@ import { GiftWithUser } from '../../../domain/giftWithUser';
 import { GiftService } from '../../../service/gift.service';
 import { Gift } from '../../../domain/gift';
 import { Router } from '@angular/router';
+import { GlobalService } from '../../../service/global.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,7 @@ export class RegisterComponent {
   frmRegister!:FormGroup
   user!:User
   gifts!: Gift[];
-  constructor(private router:Router){}
+  constructor(private router:Router, private globalService:GlobalService){}
   ngOnInit(){
     this.frmRegister=new FormGroup({ 
       email:new FormControl("",[Validators.required,Validators.email]),
@@ -57,13 +58,15 @@ export class RegisterComponent {
         //   alert("User not found go to register")
         // else 
         if (this.user.role) {
-          localStorage.setItem("userrole", this.user.role)
+          // localStorage.setItem("userrole", this.user.role)
+          let b:boolean=this.user.role=='Admin'?true:false
+          this.globalService.setIsAdmin(b)
         }
         if (this.user.email) {
           localStorage.setItem("username", this.user.email)
         }
         if (this.user.fullName) {
-          localStorage.setItem("userfullname", this.user.fullName)
+          this.globalService.setUserConnect(this.user.fullName)
         }
         this.router.navigate(['/'])
         })

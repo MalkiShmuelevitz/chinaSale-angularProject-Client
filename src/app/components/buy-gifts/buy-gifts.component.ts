@@ -19,7 +19,6 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class BuyGiftsComponent {
   layout: 'list' | 'grid' = 'grid';
-  // layout: string = 'grid';
   gifts!: GiftForCart[];
   flag: boolean = false;
   srvGift:GiftService=inject(GiftService)
@@ -34,8 +33,8 @@ export class BuyGiftsComponent {
     ) {}
 
   ngOnInit() {
-    // data.slice(0, 12)
-    this.giftService.getGifts().subscribe((data) => (this.gifts = data));
+    this.giftService.getGifts().subscribe((data) => (
+      this.gifts = data));
   }
 
   // getSeverity(gift: Gift) {
@@ -97,51 +96,7 @@ export class BuyGiftsComponent {
   }
 
 
-  currentGifts:GiftForCart[]=[]
 
-  goToRegister(){
-    if(localStorage.getItem("username")){
-      this.confirmationService.confirm({
-        message: 'You are adding a new order to ' + localStorage.getItem("username") + ' to confirm?',
-        header: 'Confirm',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-          const username = localStorage.getItem("username") || ""
-          this.currentGifts = JSON.parse(localStorage.getItem("Cart") || '[]')
-          this.srvGift.postForCart(
-            this.currentGifts,
-            username
-          ).subscribe((data)=>{
-              this.gifts=data
-            })
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Successful',
-              detail: `The order of ${localStorage.getItem("username")} was successfully received.`,
-              life: 3000,
-            });
-          
-          // this.srvGiftWithUser.post(
-          //   this.currentGifts,
-          //   username
-          //   )
-          // .subscribe((data)=>{
-          //   this.gifts=data
-          // })
-          // this.messageService.add({
-          //   severity: 'success',
-          //   summary: 'Successful',
-          //   detail: `The order of ${localStorage.getItem("username")} was successfully received.`,
-          //   life: 3000,
-          // });
-        },
-      })
-    }
-    else {
-      this.router.navigate(['/register'])
-    }
-    
-  }
 }
 
 

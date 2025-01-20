@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
 import { NavigationEnd, Router } from '@angular/router';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { BehaviorSubject } from 'rxjs';
+import { GlobalService } from '../../service/global.service';
 
 @Component({
   selector: 'app-nav',
@@ -13,52 +15,49 @@ import { TabMenuModule } from 'primeng/tabmenu';
   styleUrl: './nav.component.scss'
 })
 export class NavComponent implements OnInit {
-  // items: MenuItem[] | undefined;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private globalService: GlobalService) { }
 
-  // ngOnInit() {
-  //     this.items = [
-  //         { label: 'Home', icon: 'pi pi-home', route: '' },
-  //         { label: 'Gifts', icon: 'pi pi-home', route: 'gifts' },
-  //         { label: 'Donors', icon: 'pi pi-home', route: 'donors' },
-  //         { label: 'Buy Gifts', icon: 'pi pi-home', route: 'buyGifts' },
-  //         ];
-  // }
-  username!:string
-  usernameStart!:string
+  username!: string
+  usernameStart!: string
   items: MegaMenuItem[] | undefined;
 
-    ngOnInit() {
-      localStorage.setItem("Cart", '[]')
-      this.router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
-          if(localStorage.getItem("userrole")=='Admin'){
-            this.items = [
-              { label: 'Home', icon: 'pi pi-home', route: '' },
-              { label: 'Gifts', icon: 'pi pi-gift', route: 'gifts' },
-              { label: 'Donors', icon: 'pi pi-user', route: 'donors' },
-              { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
-              { label: 'Lottery', icon: 'pi pi-trophy', route: 'lottery' },
-              { label: 'Login', icon: 'pi pi-sign-in', route: 'login' },
-            ];
-          }
-          else {
-            this.items = [
-                  { label: 'Home', icon: 'pi pi-home', route: '' },
-                  { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
-                  { label: 'Login', icon: 'pi pi-sign-in', route: 'login' },
-                ];
-          }
-          if(localStorage.getItem("userfullname"))   {
-            this.username=localStorage.getItem("userfullname") || ""
-            this.usernameStart=localStorage.getItem("userfullname")?.substring(0,1).toUpperCase() || ""
-          }
-        }
-      });
-      
-    }
-    onClick(){
-      // alert("1111")
-    }
+  ngOnInit() {
+    this.globalService.getIsAdmin().subscribe((isAdmin) => {
+      if(isAdmin){
+          this.items = [
+        { label: 'Home', icon: 'pi pi-home', route: '' },
+        { label: 'Gifts', icon: 'pi pi-gift', route: 'gifts' },
+        { label: 'Donors', icon: 'pi pi-user', route: 'donors' },
+        { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
+        { label: 'Cart', icon: 'pi pi-shopping-bag', route: 'cart' },
+        { label: 'Lottery', icon: 'pi pi-trophy', route: 'lottery' },
+        // { label: 'Login', icon: 'pi pi-sign-in', route: 'login' },
+      ];
+      }
+      else {
+        this.items = [
+          { label: 'Home', icon: 'pi pi-home', route: '' },
+          { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
+          { label: 'Cart', icon: 'pi pi-shopping-bag', route: 'cart' },
+          // { label: 'Login', icon: 'pi pi-sign-in', route: 'login' },
+        ];
+      }
+     
+    })
+    this.globalService.getUserConnect().subscribe((username)=>{
+        this.username = username
+        this.usernameStart = username?.substring(0, 1).toUpperCase() || ""
+    })
+   
+  }
+
+  navigateToLogin(){
+    this.globalService.setVisibleLogin(true)
+    this.router.navigate(['/login'])
+  }
 }
+
+
+

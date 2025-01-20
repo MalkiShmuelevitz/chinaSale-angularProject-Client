@@ -6,10 +6,9 @@
                     <p-dataViewLayoutOptions [layout]="layout" />
 
                 </div>
-                <div class="flex justify-content-start">
+                <!-- <div class="flex justify-content-start">
                     <p-button severity="success" label="Payment" icon="pi pi-credit-card" class="mr-2" (onClick)="goToRegister()"/>
-
-                </div>
+                </div> -->
         </ng-template>
             <ng-template let-gift pTemplate="grid" let-gifts>
                 <div class="grid grid-nogutter">
@@ -43,8 +42,13 @@
                                 <div class="flex flex-column gap-4 mt-4">
                                     <span class="text-2xl font-semibold">{{ '₪' + gift.price }}</span>
                                     <div class="flex gap-2">
-                                        <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap" label="Buy Ticket"  (onClick)="addToCart(gift)" />
-                                        <!-- [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" -->
+                                        <p-button 
+                                        icon="pi pi-shopping-cart" 
+                                        class="flex-auto md:flex-initial white-space-nowrap" 
+                                        label="Buy Ticket" 
+                                       
+                                        (onClick)="addToCart(gift)"
+                                         />                                        <!-- [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" -->
                                         <!-- <p-inputOtp value="1" [(ngModel)]="gift.quantity" [length]="1"/> -->
                                         <!-- <p-inputNumber 
                                             [(ngModel)]="gift.quantity" 
@@ -54,7 +58,7 @@
                                             [min]="0" 
                                             [max]="100"
                                             />  -->
-                                            <p-inputNumber
+                                    <p-inputNumber
                                     [(ngModel)]="gift.quantity" 
                                     [showButtons]="true"
                                     buttonLayout="horizontal"
@@ -69,6 +73,8 @@
                                     [min]="0" 
                                     [max]="99"
                                     />
+                                    <!-- <p-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info " /> -->
+
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +126,16 @@
                                     <span class="text-xl font-semibold text-900">{{ '₪' + item.price }}</span>
                                     <div class="flex flex-row-reverse md:flex-row gap-2">
                                         <!-- <p-button icon="pi pi-heart" [outlined]="true" /> -->
-                                        <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap" label="Buy Ticket" (onClick)="addToCart(item)" />
+                                        <p-button 
+                                        icon="pi pi-shopping-cart" 
+                                        class="flex-auto md:flex-initial white-space-nowrap" 
+                                        label="Buy Ticket" 
+                                        
+                                        (onClick)="addToCart(item)"
+                                         />
+                                         
+
+
                                         <!-- [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" -->
                                         <!-- <p-inputNumber 
                                         [(ngModel)]="item.quantity" 

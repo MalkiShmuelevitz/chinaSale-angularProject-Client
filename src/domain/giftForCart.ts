@@ -1,6 +1,6 @@
 import { Gift } from "./gift";
 
-export interface GiftForCart extends Gift {
-    quantity?: number;
+export class GiftForCart extends Gift {
+    quantity?: number = 1;
 }
   

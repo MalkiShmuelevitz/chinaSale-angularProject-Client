@@ -12,12 +12,14 @@ import { RegisterComponent } from './components/register/register.component';
 import { LotteryComponent } from './components/lottery/lottery.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from '../service/auth.service';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full'},
   { path: 'buyGifts', component: BuyGiftsComponent, pathMatch: 'full' },
   { path: 'register', component: RegisterComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: 'cart', component: CartComponent, pathMatch: 'full' },
   { path: 'lottery', component: LotteryComponent,canActivate:[AuthService], pathMatch: 'full' },
   // {path: '', redirectTo:'start', pathMatch:'full'},
   {path: 'donors', component: ManageDonorComponent,canActivate:[AuthService], children: [
