@@ -1,0 +1,19 @@
+.all {
+    display: flex; /* מחלק את האלמנטים בצורה גמישה */
+    justify-content: space-between; /* אם יש מקום פנוי, מחלקים אותו בצורה שווה */
+    gap: 16px; /* מרווח בין שני החלקים */
+  }
+p-inputNumber input {
+    width: 40px !important;
+}
+  .content {
+    flex: 1; /* כל חלק יתפוס מקום שווה */
+    padding: 16px; /* ריווח פנימי */
+    box-sizing: border-box; /* לכלול padding בגודל הכללי */
+    background-color: #fff; /* רקע לכל חלק */
+    border-radius: 8px; /* רדיוס לפינות */
+    // box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* צלליות */
+  }
+.flex{
+align-items: center;
+}

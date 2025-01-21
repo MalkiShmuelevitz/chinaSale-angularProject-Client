@@ -21,8 +21,6 @@ export class BuyGiftsComponent {
   layout: 'list' | 'grid' = 'grid';
   gifts!: GiftForCart[];
   flag: boolean = false;
-  srvGift:GiftService=inject(GiftService)
-
   giftService: GiftService = inject(GiftService)
   quantity:number=1
   constructor(

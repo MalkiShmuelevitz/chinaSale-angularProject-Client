@@ -16,7 +16,9 @@ import { Router } from '@angular/router';
 export class CartComponent {
   gifts!: Gift[];
   currentGifts: GiftForCart[] = []
-
+  visible:boolean=false
+  gift!:GiftForCart
+  totalPrice:number=0
   constructor(
     private giftService: GiftService,
     private messageservice: MessageService,
@@ -29,6 +31,7 @@ export class CartComponent {
     this.gifts = JSON.parse(localStorage.getItem('Cart') || '[]');
   }
   payment() {
+    localStorage.setItem("Cart",JSON.stringify(this.gifts))
     if (localStorage.getItem("username")) {
       this.confirmationService.confirm({
         message: 'You are adding a new order to ' + localStorage.getItem("username") + ' to confirm?',
@@ -53,7 +56,8 @@ export class CartComponent {
       })
     }
     else {
-      this.router.navigate(['/register'])
+      // this.router.navigate(['/register'])
+      this.visible=true
     }
 
 

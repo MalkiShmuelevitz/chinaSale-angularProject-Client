@@ -1,9 +1,9 @@
-
-<div class="card">
-    <p-toolbar styleClass="mb-4 gap-2">
-        <ng-template pTemplate="left">
-            <p-button severity="success" label="Payment" icon="pi pi-credit-card" class="mr-2" (onClick)="payment()"/>
-        </ng-template>
+<div class="all">
+<div class="content">
+      <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="right">
+            <span class="text-xl font-semibold text-900">Your cart amounts to </span>
+            </ng-template>
       </p-toolbar>
     <p-dataView 
     #dv [value]="gifts">
@@ -23,23 +23,33 @@
                                     <div class="text-lg font-medium text-900 mt-2">{{ item.name }}</div>
                                 </div>
                                 <div class="surface-100 p-1" style="border-radius: 30px">
-                                    <div class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                                        <span class="text-xl font-semibold text-900">{{item.quantity}}</span>
+                                    <!-- <div class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"> -->
+                                        <!-- <span class="text-xl font-semibold text-900">{{item.quantity}}</span> -->
 
                                         <!-- <span class="text-900 font-medium text-sm">{{ item.rating }}</span> -->
                                         <!-- <i class="pi pi-star-fill text-yellow-500"></i> -->
-                                    </div>
+                                    <!-- </div> -->
                                 </div>
                             </div>
                             <div class="flex flex-column md:align-items-end gap-5">
-                                <span class="text-xl font-semibold text-900">{{ '₪' + item.price*item.quantity }}</span>
-                                <div class="flex flex-row-reverse md:flex-row gap-2">
+                                <span class="text-xl font-semibold text-900">{{ '₪' + item.price * item.quantity }}</span>
+                                <!-- <div class="flex flex-row-reverse md:flex-row gap-2 flex"> -->
                                     <!-- <span class="text-xl font-semibold text-900">{{item.quantity}}</span> -->
-
+                                    <!-- <div class="text-xl font-semibold text-10000">{{item.quantity}}</div> -->
+                                    <p-button  [disabled]="visible" icon="pi pi-trash" [outlined]="true" severity="danger"/>
+                                    <p-inputNumber 
+                                    [(ngModel)]="item.quantity" 
+                                    mode="decimal" 
+                                    [showButtons]="true" 
+                                    inputId="minmax-buttons" 
+                                    [min]="1" 
+                                    [max]="100"
+                                    [disabled]="visible"
+                                    /> 
                                     <!-- <p-button icon="pi pi-heart" [outlined]="true" /> -->
                                     <!-- <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap" label="Buy Now"  /> -->
                                     <!-- [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" -->
-                                </div>
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -47,6 +57,15 @@
             </div>
         </ng-template>
     </p-dataView>
+</div>
+<div class="content">
+    <!-- <p-toolbar styleClass="mb-4 gap-2"> -->
+        <!-- <ng-template pTemplate="center"> -->
+            <p-button severity="success" label="Payment" icon="pi pi-credit-card" class="mr-2" (onClick)="payment()"/>
+            <app-register *ngIf="visible"></app-register>
+            <!-- </ng-template> -->
+      <!-- </p-toolbar> -->
+</div>
 </div>
 <p-confirmDialog [style]="{ width: '450px' }" />
 <p-toast></p-toast>
