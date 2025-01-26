@@ -14,6 +14,25 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthService } from '../service/auth.service';
 import { CartComponent } from './components/cart/cart.component';
 
+// const routes: Routes = [
+//   { path: '', component: HomeComponent, pathMatch: 'full'},
+//   { path: 'buyGifts', component: BuyGiftsComponent, pathMatch: 'full' },
+//   { path: 'register', component: RegisterComponent, pathMatch: 'full' },
+//   { path: 'login', component: LoginComponent, pathMatch: 'full' },
+//   { path: 'cart', component: CartComponent, pathMatch: 'full' },
+//   { path: 'lottery', component: LotteryComponent, pathMatch: 'full' },
+//   {path: 'donors', component: ManageDonorComponent, children: [
+//       { path: 'add', component: AddDonorComponent },
+//       { path: 'update', component: UpdateDonorComponent },
+//     ]
+//   },
+//   {path: 'gifts', component: TableGiftsDemoComponent, children: [
+//       { path: 'add', component: AddGiftComponent },
+//       { path: 'update', component: UpdateGiftComponent }
+//     ]
+//   },
+//   // {path: '**', component:NotFoundComponent}
+// ];
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full'},
   { path: 'buyGifts', component: BuyGiftsComponent, pathMatch: 'full' },
@@ -21,23 +40,18 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: 'cart', component: CartComponent, pathMatch: 'full' },
   { path: 'lottery', component: LotteryComponent,canActivate:[AuthService], pathMatch: 'full' },
-  // {path: '', redirectTo:'start', pathMatch:'full'},
   {path: 'donors', component: ManageDonorComponent,canActivate:[AuthService], children: [
-      // {path:'', redirectTo: 'list', pathMatch:'full'},
       { path: 'add', component: AddDonorComponent },
       { path: 'update', component: UpdateDonorComponent },
     ]
   },
-  // {path: 'data-services', component: DataServicesComponent},
   {path: 'gifts', component: TableGiftsDemoComponent,canActivate:[AuthService], children: [
-      // {path:'', redirectTo:'first', pathMatch:'full'},
       { path: 'add', component: AddGiftComponent },
       { path: 'update', component: UpdateGiftComponent }
     ]
   },
   // {path: '**', component:NotFoundComponent}
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

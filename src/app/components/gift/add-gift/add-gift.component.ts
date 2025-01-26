@@ -62,8 +62,8 @@ export class AddGiftComponent {
   }
 
   saveGift() {
-    this.gifts = this.giftsFromManage
 
+    this.gifts = this.giftsFromManage
     this.gift = {
       // id: this.gift.id,
       name: this.frmAddGift.controls['name'].value,
@@ -124,7 +124,6 @@ export class AddGiftComponent {
         // });
       }
       else {
-
         this.messegeServiceAdd.emit(
           {
             severity: 'error',

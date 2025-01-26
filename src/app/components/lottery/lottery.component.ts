@@ -7,6 +7,7 @@ import { Gift } from '../../../domain/gift';
 import { GiftService } from '../../../service/gift.service';
 import { GiftWithUser } from '../../../domain/giftWithUser';
 import { User } from '../../../domain/user';
+import { GlobalService } from '../../../service/global.service';
 @Component({
   selector: 'app-lottery',
   templateUrl: './lottery.component.html',
@@ -14,29 +15,36 @@ import { User } from '../../../domain/user';
 })
 export class LotteryComponent {
   gifts!: Gift[];
+  gift!: Gift
   users:User[]=[]
-  srvGift=inject(GiftService)
   dialogShowUsers: boolean = false;
-  constructor(private giftService: GiftService) {}
+  visible:boolean=false
+  constructor(
+    private giftService: GiftService,
+    private globalService:GlobalService
+    ) {}
 
     ngOnInit() {
-      // this.srvGiftsWithUser.getGifts().subscribe((data)=>{
-      //   this.gifts=data;
-      //   // console.log(this.gifts);
-      // })
-      this.srvGift.getGifts().subscribe((data)=>{
+      this.globalService.getIsLoterryActive().subscribe((data)=>{
+        console.log(data);
+        this.visible = data
+      })
+      this.giftService.getGifts().subscribe((data)=>{
         this.gifts=data;
-        console.log(this.gifts);
-        
       })
     }
     getWinners(){
-      // this.srvGiftsWithUser.getWithRandom().subscribe((data)=>{
-      //   this.gifts=data;
-      //   // console.log(this.gifts);
-      // })
-      this.srvGift.getWithRandom().subscribe((data)=>{
+      this.globalService.setIsLoterryActive(false)
+      this.giftService.getWithRandom().subscribe((data)=>{
         this.gifts=data
+        // this.gifts.forEach((g)=>{
+        //   g={...g,usersList:[]}
+        //   console.log(g);
+        //   this.giftService.post(g).subscribe((data)=>{
+           
+        //   })
+        // })
+        
       })
     }
     showUsers(gift:Gift){
@@ -44,20 +52,6 @@ export class LotteryComponent {
       console.log(gift);
       this.dialogShowUsers=true
     }
-    // getSeverity (gift: Gift) {
-    //     switch (product.inventoryStatus) {
-    //         case 'INSTOCK':
-    //             return 'success';
 
-    //         case 'LOWSTOCK':
-    //             return 'warning';
-
-    //         case 'OUTOFSTOCK':
-    //             return 'danger';
-
-    //         default:
-    //             return null;
-    //     }
-    // };
 }
 

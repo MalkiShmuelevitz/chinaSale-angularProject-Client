@@ -9,7 +9,6 @@
 header="Login" 
 [modal]="true"
 [(visible)]="visible" 
-
 [style]="{ width: '25rem' }">
 <form [formGroup]="frmLogin">
     <span class="p-text-secondary block mb-5">
@@ -19,7 +18,7 @@ header="Login"
         <label class="w-6rem">Username</label>
         <input formControlName="username" pInputText id="username" type="text" class="w-12rem" />
         <small class="p-error" *ngIf="frmLogin.controls['username'].errors?.['required'] && frmLogin.controls['username'].dirty">Username is required</small>
-        <div class="p-error" *ngIf="frmLogin.controls['username'].errors?.['email'] && frmLogin.controls['username'].dirty">Username not valid</div>
+        <div class="p-error" *ngIf="frmLogin.controls['username'].errors?.['email'] && frmLogin.controls['username'].dirty && frmLogin.controls['username'].touched">Username not valid</div>
     </div>
     <div class="flex align-items-center gap-3 mb-5">
         <label class="w-6rem">Password</label>

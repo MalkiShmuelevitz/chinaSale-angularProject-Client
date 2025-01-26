@@ -8,6 +8,7 @@ import { GiftService } from '../../../service/gift.service';
 import { Gift } from '../../../domain/gift';
 import { Router } from '@angular/router';
 import { GlobalService } from '../../../service/global.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,10 @@ export class RegisterComponent {
   frmRegister!:FormGroup
   user!:User
   gifts!: Gift[];
-  constructor(private router:Router, private globalService:GlobalService){}
+  constructor(private router:Router, 
+    private globalService:GlobalService,
+    private messageService:MessageService
+    ){}
   ngOnInit(){
     this.frmRegister=new FormGroup({ 
       email:new FormControl("",[Validators.required,Validators.email]),
@@ -49,11 +53,13 @@ export class RegisterComponent {
     )
     .subscribe((data)=>{
       this.user=data
+      this.user.role='User'
       this.srvGift.postForCart(
         this.currentGifts,
         this.frmRegister.controls["email"].value)
       .subscribe((data)=>{
         this.gifts=data
+        localStorage.setItem("Cart",'[]')
         // if (!this.user)
         //   alert("User not found go to register")
         // else 
@@ -68,6 +74,13 @@ export class RegisterComponent {
         if (this.user.fullName) {
           this.globalService.setUserConnect(this.user.fullName)
         }
+        ////////////////////////////////
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Order added seccessfully',
+          life: 3000,
+        });
         this.router.navigate(['/'])
         })
     })

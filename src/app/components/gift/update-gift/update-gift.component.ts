@@ -68,16 +68,15 @@ export class UpdateGiftComponent {
   ngOnInit() {
     console.log(this.gift);
     
-    this.srvDonor.getDonors().subscribe((data) => {
+    this.loadDonors(this.donors);
+    this.srvGift.getGifts().subscribe((data) => {
+      this.gifts = data
+      this.srvDonor.getDonors().subscribe((data) => {
       this.donors = data
       this.donors2 = this.donors.map((d) => {
         return d.fullName
       })
     })
-    this.loadDonors(this.donors);
-
-    this.srvGift.getGifts().subscribe((data) => {
-      this.gifts = data
     })
   }
   hideDialog() {
@@ -85,66 +84,77 @@ export class UpdateGiftComponent {
     // this.submitted = false;
   }
   saveGift() {
-    this.gift = {
-      id: this.gift.id,
-      name: this.frmEditGift.controls['name'].value,
-      donor: this.frmEditGift.controls['donor'].value,
-      price: this.frmEditGift.controls['price'].value,
-      image: this.frmEditGift.controls['image'].value,
-      usersList:[],
-      //ערכים פיקטיביים....
-      winner: {
-        id:1,
-        phone:"0",
-        adress:"b",
-        creditCard:"h",
-        role:"User",
-        email:"2@2.2",
-        fullName:"hjgh",
-        password:"6789"
+    console.log(this.gift);
+    if(this.gift.usersList?.length == 0){
+      this.gift = {
+        id: this.gift.id,
+        name: this.frmEditGift.controls['name'].value,
+        donor: this.frmEditGift.controls['donor'].value,
+        price: this.frmEditGift.controls['price'].value,
+        image: this.frmEditGift.controls['image'].value,
+        usersList:[],
+        //ערכים פיקטיביים....
+        winner: {
+          id:1,
+          phone:"0",
+          adress:"b",
+          creditCard:"h",
+          role:"User",
+          email:"2@2.2",
+          fullName:"hjgh",
+          password:"6789"
+        }
+      }
+      if (this.gift.id) {
+        let ind = this.gifts.findIndex(g => g.name == this.gift.name)
+        if (ind == -1 || ind > -1 && this.gifts[ind].id == this.gift.id) {
+          this.srvGift.update(this.gift.id, this.gift).subscribe((data) => {
+            this.gift=data
+            this.srvGift.getGifts().subscribe((data) => { 
+              this.gifts = data 
+              this.giftsToManage.emit(this.gifts)
+            })
+            this.messegeServiceAdd.emit({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Gift Updated',
+            life: 3000,
+          })
+          })
+         
+          
+          // this.messageService.add({
+          //   severity: 'success',
+          //   summary: 'Successful',
+          //   detail: 'Gift Updated',
+          //   life: 3000,
+          // });
+        }
+        else {
+          this.messegeServiceAdd.emit({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'This name already exists',
+            life: 3000,
+          })
+          // this.messageService.add({
+          //   severity: 'danger',
+          //   summary: 'Error',
+          //   detail: 'This name already exists',
+          //   life: 3000,
+          // });
+        }
+      this.giftDialogEdit.emit(false)
       }
     }
-    if (this.gift.id) {//if update
-      let ind = this.gifts.findIndex(g => g.name == this.gift.name)
-      if (ind == -1 || ind > -1 && this.gifts[ind].id == this.gift.id) {
-        this.srvGift.update(this.gift.id, this.gift).subscribe((data) => {
-          this.gift=data
-          this.srvGift.getGifts().subscribe((data) => { 
-            this.gifts = data 
-            this.giftsToManage.emit(this.gifts)
-          })
-          this.messegeServiceAdd.emit({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Gift Updated',
-          life: 3000,
-        })
-        })
-       
-        
-        // this.messageService.add({
-        //   severity: 'success',
-        //   summary: 'Successful',
-        //   detail: 'Gift Updated',
-        //   life: 3000,
-        // });
-      }
-      else {
-        this.messegeServiceAdd.emit({
-          severity: 'danger',
-          summary: 'Error',
-          detail: 'This name already exists',
-          life: 3000,
-        })
-        // this.messageService.add({
-        //   severity: 'danger',
-        //   summary: 'Error',
-        //   detail: 'This name already exists',
-        //   life: 3000,
-        // });
-      }
-    this.giftDialogEdit.emit(false)
-    
+    else {
+      this.giftDialogEdit.emit(false)
+      this.messegeServiceAdd.emit({
+        severity: 'error',
+        summary: 'Can not Update',
+        detail: 'Someone already bought this gift.',
+        life: 3000,
+      })
     }
   }
 

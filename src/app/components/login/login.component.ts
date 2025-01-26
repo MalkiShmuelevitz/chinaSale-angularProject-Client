@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { GlobalService } from '../../../service/global.service';
 import { Location } from '@angular/common';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent {
     private router: Router,
     private confirmationService: ConfirmationService,
     private globalService:GlobalService,
-    private location: Location
+    private location: Location,
+    private authService:AuthService
   ) {  }
   ngOnInit() {
     this.globalService.getVisibleLogin().subscribe((visible)=>{
@@ -35,39 +37,8 @@ export class LoginComponent {
     })
   }
   login() {
-    //check this if!!!
     this.visible=false
-    const len = localStorage.getItem("Cart")?.length || 0
-    if (len > 0) {
-      this.confirmationService.confirm({
-        message: localStorage.getItem("username") + ' you are go to lose your order. to continue?',
-        header: 'Confirm',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-          this.srvUser.postLogin(
-            this.frmLogin.value
-          ).subscribe((data) => {
-            this.user = data
-            if (!this.user)
-              alert("User not found go to register")
-            else if (this.user.role) {
-              let b:boolean=this.user.role=='Admin'?true:false
-              this.globalService.setIsAdmin(b)
-            }
-            if (this.user.email) {
-              localStorage.setItem("username", this.user.email)
-            }
-            if (this.user.fullName) {
-              this.globalService.setUserConnect(this.user.fullName)
-            }
-            this.router.navigate(['/'])
-          })
-        }
-      })
-    }
-    else {
-      this.router.navigate(['/'])
-    }
+    this.authService.login(this.frmLogin)
   }
   visible: boolean = false;
 

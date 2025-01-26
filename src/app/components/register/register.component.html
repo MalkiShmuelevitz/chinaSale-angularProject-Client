@@ -5,25 +5,34 @@
                 <div class="flex flex-wrap gap-2">
                     <label class="w-6rem">Username</label>
                     <input formControlName="email" pInputText id="username" type="text" class="w-full" />
+                    <small class="p-error" *ngIf="frmRegister.controls['username']?.errors?.['required'] && frmRegister.controls['username'].dirty">Username is required</small>
+                    <small class="p-error" *ngIf="frmRegister.controls['username']?.errors?.['email'] && frmRegister.controls['username'].dirty && frmRegister.controls['username'].touched">Username not valid</small>
+
                 <!-- </div> -->
                 <!-- <div class="flex flex-wrap justify-content-center align-items-center gap-2"> -->
                     <label class="w-6rem">Password</label>
-                 
                     <input formControlName="password" pInputText id="password" type="password" class="w-full" />
+                    <small class="p-error" *ngIf="frmRegister.controls['password']?.errors?.['required'] && frmRegister.controls['password'].dirty">Password is required</small>
+
                 <!-- </div> -->
                 <!-- <div class="flex flex-wrap justify-content-center align-items-center gap-2"> -->
                     <div class="w-6rem">Full Name</div>
-                   
-                    <input formControlName="fullname" pInputText id="fullname" type="text" class="p-col-6" />
-                <!-- </div> -->
+                    <input formControlName="fullname" pInputText id="fullname" type="text" class="w-full" />
+                    <small class="p-error" *ngIf="frmRegister.controls['fullname']?.errors?.['required'] && frmRegister.controls['fullname'].dirty">Full Name is required</small>
+
+                    <!-- </div> -->
                 <!-- <div class="flex flex-wrap justify-content-center align-items-center gap-2"> -->
                     <label class="w-6rem">Adress</label>
-                    <input formControlName="adress" pInputText id="adress" type="text" class="p-col-6" />
-                <!-- </div> -->
+                    <input formControlName="adress" pInputText id="adress" type="text" class="w-full" />
+                    <small class="p-error" *ngIf="frmRegister.controls['adress']?.errors?.['required'] && frmRegister.controls['adress'].dirty">Address is required</small>
+
+                    <!-- </div> -->
                 <!-- <div class="flex flex-wrap justify-content-center align-items-center gap-2"> -->
                     <label class="w-6rem">Phone</label>
-                    <input formControlName="phone" pInputText id="phone" type="text" class="w-12rem" />
-                <!-- </div> -->
+                    <input formControlName="phone" pInputText id="phone" type="text" class="w-full" />
+                    <small class="p-error" *ngIf="frmRegister.controls['phone']?.errors?.['required'] && frmRegister.controls['phone'].dirty">Phone is required</small>
+
+                    <!-- </div> -->
                 <!-- <div class="flex flex-wrap justify-content-center align-items-center gap-2"> -->
                     <label class="w-6rem">Credit Card</label>
                     <p-inputMask 
@@ -34,8 +43,12 @@
                     placeholder="Validity" />
                     <p-inputMask mask="999" formControlName="creditCard" slotChar=" "
                     placeholder="CVV" />
+                    <small class="p-error" *ngIf="frmRegister.controls['creditCard']?.errors?.['required'] && frmRegister.controls['creditCard'].dirty">Credit Card is required</small>
+
                 <!-- </div> -->
-                <p-button label="Register" icon="pi pi-user" styleClass="w-12rem mx-auto" (onClick)="payment()" />
+                <p-button label="Pay" icon="pi pi-user" styleClass="w-12rem mx-auto" 
+                [disabled]="!frmRegister.valid"
+                (onClick)="payment()" />
 
                 <!-- [disabled]="frmLogin.invalid" -->
             </div>
@@ -43,3 +56,4 @@
 
     </div>
 </div>
+<p-toast></p-toast>

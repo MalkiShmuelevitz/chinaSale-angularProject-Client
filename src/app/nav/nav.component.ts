@@ -8,6 +8,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { BehaviorSubject } from 'rxjs';
 import { GlobalService } from '../../service/global.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -17,23 +18,32 @@ import { GlobalService } from '../../service/global.service';
 export class NavComponent implements OnInit {
 
   constructor(private router: Router,
-    private globalService: GlobalService) { }
+    private globalService: GlobalService,
+    private authService:AuthService
+    ) { }
 
   username!: string
   usernameStart!: string
   items: MegaMenuItem[] | undefined;
 
   ngOnInit() {
+    // this.items = [
+    //   { label: 'Home', icon: 'pi pi-home', route: '' },
+    //   { label: 'Gifts', icon: 'pi pi-gift', route: 'gifts' },
+    //   { label: 'Donors', icon: 'pi pi-user', route: 'donors' },
+    //   { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
+    //   { label: 'Cart', icon: 'pi pi-shopping-bag', route: 'cart' },
+    //   { label: 'Lottery', icon: 'pi pi-trophy', route: 'lottery' },
+    // ];
     this.globalService.getIsAdmin().subscribe((isAdmin) => {
       if(isAdmin){
-          this.items = [
+      this.items = [
         { label: 'Home', icon: 'pi pi-home', route: '' },
         { label: 'Gifts', icon: 'pi pi-gift', route: 'gifts' },
         { label: 'Donors', icon: 'pi pi-user', route: 'donors' },
         { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
         { label: 'Cart', icon: 'pi pi-shopping-bag', route: 'cart' },
         { label: 'Lottery', icon: 'pi pi-trophy', route: 'lottery' },
-        // { label: 'Login', icon: 'pi pi-sign-in', route: 'login' },
       ];
       }
       else {
@@ -41,7 +51,6 @@ export class NavComponent implements OnInit {
           { label: 'Home', icon: 'pi pi-home', route: '' },
           { label: 'Buy Gifts', icon: 'pi pi-shopping-bag', route: 'buyGifts' },
           { label: 'Cart', icon: 'pi pi-shopping-bag', route: 'cart' },
-          // { label: 'Login', icon: 'pi pi-sign-in', route: 'login' },
         ];
       }
      
@@ -56,6 +65,9 @@ export class NavComponent implements OnInit {
   navigateToLogin(){
     this.globalService.setVisibleLogin(true)
     this.router.navigate(['/login'])
+  }
+  logOut(){
+    this.authService.logOut()
   }
 }
 

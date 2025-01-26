@@ -2,7 +2,7 @@
 <div class="card">
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
-            <p-button severity="success" label="Winners" icon="pi pi-trophy" class="mr-2" (onClick)="getWinners()"/>
+            <p-button [disabled]="!visible" severity="success" label="Winners" icon="pi pi-trophy" class="mr-2" (onClick)="getWinners()"/>
         </ng-template>
       </p-toolbar>
     <p-dataView #dv [value]="gifts">

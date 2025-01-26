@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { GiftForCart } from '../../../domain/giftForCart';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { GlobalService } from '../../../service/global.service';
 
 @Component({
   selector: 'app-buy-gifts',
@@ -23,18 +24,28 @@ export class BuyGiftsComponent {
   flag: boolean = false;
   giftService: GiftService = inject(GiftService)
   quantity:number=1
+  visible!: boolean
+  
   constructor(
     private router: Router,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
-
+    private confirmationService: ConfirmationService,
+    private globalService: GlobalService
+    
     ) {}
 
   ngOnInit() {
+    this.globalService.getIsLoterryActive().subscribe((data)=>{
+      this.visible=data
+    })
     this.giftService.getGifts().subscribe((data) => (
-      this.gifts = data));
+      this.gifts = data.map((gift) => ({
+        ...gift,
+        quantity: 1,
+      }))
+      ));
   }
-
+  
   // getSeverity(gift: Gift) {
   //     switch (product.inventoryStatus) {
   //         case 'INSTOCK':
@@ -57,13 +68,13 @@ export class BuyGiftsComponent {
     giftForCart.usersList=[]
     giftForCart.winner={
         id: 1,
-        phone: "0",
-        adress: "b",
-        creditCard: "h",
+        phone: "1",
+        adress: "1",
+        creditCard: "1",
         role: "User",
         email: "2@2.2",
-        fullName: "hjgh",
-        password: "6789"
+        fullName: "1",
+        password: "1"
     }
     const index = this.giftsOnCart.findIndex((g)=>
       g.id===giftForCart.id

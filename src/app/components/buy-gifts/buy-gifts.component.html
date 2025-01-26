@@ -46,17 +46,19 @@
                                         icon="pi pi-shopping-cart" 
                                         class="flex-auto md:flex-initial white-space-nowrap" 
                                         label="Buy Ticket" 
-                                       
                                         (onClick)="addToCart(gift)"
-                                         />                                        <!-- [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" -->
+                                        [disabled]="!visible"
+                                         />   
+                                         <!-- [disabled]=""  [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" -->
                                         <!-- <p-inputOtp value="1" [(ngModel)]="gift.quantity" [length]="1"/> -->
                                         <p-inputNumber 
                                         [(ngModel)]="gift.quantity" 
                                         mode="decimal" 
                                         [showButtons]="true" 
                                         inputId="minmax-buttons" 
-                                        [min]="0" 
+                                        [min]="1" 
                                         [max]="100"
+                                        [disabled]="!visible"
                                         /> 
                                     <!-- <p-inputNumber
                                     [(ngModel)]="gift.quantity" 
@@ -131,7 +133,7 @@
                                         icon="pi pi-shopping-cart" 
                                         class="flex-auto md:flex-initial white-space-nowrap" 
                                         label="Buy Ticket" 
-                                        
+                                        [disabled]="!visible"
                                         (onClick)="addToCart(item)"
                                          />
                                          
@@ -166,8 +168,9 @@
                                         mode="decimal" 
                                         [showButtons]="true" 
                                         inputId="minmax-buttons" 
-                                        [min]="0" 
+                                        [min]="1" 
                                         [max]="100"
+                                        [disabled]="!visible"
                                         /> 
 
                                     </div>

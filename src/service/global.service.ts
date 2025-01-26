@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class GlobalService{
   isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoterryActive: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   visibleLogin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   userConnect: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
@@ -17,6 +18,12 @@ export class GlobalService{
   }
   setIsAdmin(b:boolean){
     this.isAdmin.next(b)
+  }
+  getIsLoterryActive(){
+    return this.isLoterryActive
+  }
+  setIsLoterryActive(b:boolean){
+    this.isLoterryActive.next(b)
   }
   getUserConnect(){
     return this.userConnect

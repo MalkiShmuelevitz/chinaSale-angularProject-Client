@@ -1,12 +1,7 @@
 <div class="all">
 <div class="content">
-      <p-toolbar styleClass="mb-4 gap-2">
-        <ng-template pTemplate="right">
-            <span class="text-xl font-semibold text-900">Your cart amounts to </span>
-            </ng-template>
-      </p-toolbar>
     <p-dataView 
-    #dv [value]="gifts">
+    #dv [value]="currentGifts">
         <ng-template pTemplate="list" let-gifts>
             <div class="grid grid-nogutter">
                 <div class="col-12" *ngFor="let item of gifts; let first = first" class="col-12">
@@ -36,7 +31,10 @@
                                 <!-- <div class="flex flex-row-reverse md:flex-row gap-2 flex"> -->
                                     <!-- <span class="text-xl font-semibold text-900">{{item.quantity}}</span> -->
                                     <!-- <div class="text-xl font-semibold text-10000">{{item.quantity}}</div> -->
-                                    <p-button  [disabled]="visible" icon="pi pi-trash" [outlined]="true" severity="danger"/>
+                                    <p-button  [disabled]="visible" icon="pi pi-trash" [outlined]="true" 
+                                    severity="danger"
+                                    (onClick)="deleteFromCart(item)"
+                                    />
                                     <p-inputNumber 
                                     [(ngModel)]="item.quantity" 
                                     mode="decimal" 
@@ -46,6 +44,7 @@
                                     [max]="100"
                                     [disabled]="visible"
                                     /> 
+                                    
                                     <!-- <p-button icon="pi pi-heart" [outlined]="true" /> -->
                                     <!-- <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap" label="Buy Now"  /> -->
                                     <!-- [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" -->
@@ -61,7 +60,12 @@
 <div class="content">
     <!-- <p-toolbar styleClass="mb-4 gap-2"> -->
         <!-- <ng-template pTemplate="center"> -->
-            <p-button severity="success" label="Payment" icon="pi pi-credit-card" class="mr-2" (onClick)="payment()"/>
+            <p-button severity="success" label="Payment" icon="pi pi-credit-card" class="w-full" [disabled]="visible" (onClick)="payment()"/>
+            <p-toolbar *ngIf="visible" styleClass="mb-4 gap-2">
+                <ng-template pTemplate="right">
+                    <span  class="text-xl font-semibold text-900">You are going to pay {{totalPrice}}₪</span>
+                    </ng-template>
+              </p-toolbar>
             <app-register *ngIf="visible"></app-register>
             <!-- </ng-template> -->
       <!-- </p-toolbar> -->

@@ -1,4 +1,4 @@
-<p>donors works!</p>
+<!-- <p>donors works!</p>
 @for(d of donors; track d.id){
 <div>
     <span>{{d.id}} </span>
@@ -21,4 +21,223 @@
 }
 @if(flag2){
     <app-update-donor (flag)="closeUpdateDonor($event)" [currentDonorFromManage]="currentDonor"></app-update-donor>
-}
+} -->
+
+<!-- 
+<div class="card">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <p-button severity="success" label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+        </ng-template>
+    </p-toolbar>
+    <p-table [value]="donors" sortMode="single" groupRowsBy="donor.fullName" dataKey="donor.fullName"
+        sortField="donor.fullName" rowGroupMode="subheader" [tableStyle]="{'min-width': '70rem'}">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:20%"></th>
+                <th style="width:20%">Name</th>
+                <th style="width:20%">adress</th>
+                <th style="width:20%">phone</th>
+                <th style="width:20%">email</th>
+                <th style="width:20%"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="groupheader" let-donor let-rowIndex="rowIndex" let-expanded="expanded">
+            <tr>
+                <td colspan="1">
+                    <button type="button" pButton pRipple [pRowToggler]="donor"
+                        class="p-button-text p-button-rounded p-button-plain mr-2"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+                    </button>
+
+                    <img 
+                            [alt]="customer.representative.name" 
+                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
+                            width="32" 
+                            style="vertical-align: middle" />
+                    <span class="font-bold ml-2">{{customer.representative.name}}</span>
+                </td>
+                <td>
+                    {{donor.fullName}}
+                </td>
+                <td>
+                    {{donor.adress}}
+                </td>
+                <td>
+                    {{donor.phone}}
+                </td>
+                <td>
+                    {{donor.email}}
+                </td>
+                <td>
+                    <p-button 
+                    icon="pi pi-pencil" 
+                    class="mr-2" 
+                    [rounded]="true" 
+                    [outlined]="true" 
+                    severity="success"
+                    (onClick)="editDonor(donor)" />
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="groupfooter" let-gift>
+            <tr class="p-rowgroup-footer">
+                <td colspan="4" style="text-align: right">Total Customers</td>
+                <td>{{calculateCustomerTotal(customer.representative.name)}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-gift>
+            <tr>
+                <td>
+                    {{gift.name}}
+                </td>
+                <td>
+                <img 
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
+                            [class]="'flag flag-' + customer.country.code" 
+                            style="width: 20px">
+                <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
+                </td>
+                <td>
+                    {{gift.donor}}
+                </td>
+                <td>
+                    {{gift.price}}
+                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                </td>
+                <td>
+                    {{gift.img}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div> -->
+
+<div class="card">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <p-button severity="success"
+             label="New" 
+             icon="pi pi-plus" 
+             (onClick)="donorDialogNew = true" />
+        </ng-template>
+    </p-toolbar>
+
+    <p-table 
+    [value]="donors"
+    [rows]="10" 
+    [paginator]="true"
+    [rowExpandMode]="'single'" 
+    [tableStyle]="{'min-width': '70rem'}" 
+    dataKey="id"
+    [globalFilterFields]="['id','fullName', 'adress']"
+    [rowHover]="true" 
+    currentPageReportTemplate="donors {first} from {totalRecords}" 
+    [showCurrentPageReport]="true"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+              <h2 class="m-0">Manage Donors</h2>
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" 
+                placeholder="Search..." 
+                (input)="filterDonors($event.target)"
+                />
+              </span>
+            </div>
+          </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th></th>
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-donor let-rowIndex="rowIndex" let-expanded="expanded">
+            <tr>
+                <td>
+                    <!-- <button 
+                    type="button" 
+                    pButton pRipple 
+                    [pRowToggler]="donor" 
+                    icon="pi pi-chevron-down"
+                    class="p-button-text">
+                    </button> -->
+                    <button 
+                    type="button" 
+                    pButton 
+                    pRipple 
+                    [pRowToggler]="donor" 
+                    class="p-button-text p-button-rounded p-button-plain mr-2" 
+                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+                </button>
+                </td>
+                <td>{{ donor.id }}</td>
+                <td>{{ donor.fullName }}</td>
+                <td>{{ donor.adress }}</td>
+                <td>{{ donor.phone }}</td>
+                <td>{{ donor.email }}</td>
+
+                <td>
+                    <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+                        (onClick)="editDonor(donor)" />
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="rowexpansion" let-donor>
+            <tr>
+            <td colspan="6">
+            <p-table [value]="donor.gifts">
+        <ng-template pTemplate="body" let-gift>
+            <tr>
+
+                <td></td>
+                <td><img [src]="'assets'+ '/' + gift.image" alt="{{ gift.name }}" width="50" /></td>
+                <td>{{ gift.name }}</td>
+                <td>{{ gift.price }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </td>
+    </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+          In total there are {{ donors ? donors.length : 0 }} donors.
+        </div>
+      </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="donorDialogNew" [style]="{ width: '450px' }" header="Add Donor" [modal]="true"
+    styleClass="p-fluid" [closable]="true">
+    <app-add-donor 
+    [donorsFromManage]="donors" 
+    (donorsToManage)="renderDonors($event)"
+    (messegeServiceAdd)="messegeService($event)" 
+    (donorDialogNew)="hideDialogNew($event)"
+    ></app-add-donor>
+       
+  </p-dialog>
+  <p-dialog [(visible)]="donorDialogEdit" [style]="{ width: '450px' }" header="Edit Donor" [modal]="true"
+    styleClass="p-fluid" [closable]="true">
+    <app-update-donor
+    (donorsToManage)="renderDonors($event)" 
+    [donorFromManage]="donor"
+    (messegeServiceAdd)="messegeService($event)" 
+    (donorDialogEdit)="hideDialogEdit($event)"
+    ></app-update-donor>
+   
+      
+  </p-dialog>
+  <p-toast />
+  <p-confirmDialog [style]="{ width: '450px' }" />
+</div>

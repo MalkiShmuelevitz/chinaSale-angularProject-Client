@@ -7,6 +7,7 @@ import { DonorService } from '../../../../service/donor.service';
 import { Donor } from '../../../../domain/donor';
 import { Table } from 'primeng/table';
 import { AfterViewInit } from '@angular/core';
+import { GlobalService } from '../../../../service/global.service';
 
 @Component({
   selector: 'app-table-gifts-demo',
@@ -22,11 +23,8 @@ export class TableGiftsDemoComponent  {
   giftDialogEdit: boolean = false;
   num: number = 0
   gifts!: Gift[];
-
   gift!: Gift;
-
   selectedGifts!: Gift[] | null;
-
   submitted: boolean = false;
   filterGiftsArr: Gift[]=[];
   basicFilterGiftsArr: Gift[]=[];
@@ -38,7 +36,8 @@ export class TableGiftsDemoComponent  {
   constructor(
     private giftService: GiftService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private globalService:GlobalService
   ) {
   }
   ngOnInit() {
@@ -83,14 +82,14 @@ export class TableGiftsDemoComponent  {
       console.error('Table is not initialized');
     }
   }
-  
+  openLoterry(){
+    this.globalService.setIsLoterryActive(true)
+  }
 
   openNew() {
     this.gift = {};
     this.submitted = false;
     this.giftDialogNew = true;
-    // console.log(this.gift)
-
   }
   messegeService(message: {}) {
     this.messageService.add(message)
@@ -139,30 +138,40 @@ export class TableGiftsDemoComponent  {
   }
 
   deleteGift(gift: Gift) {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + gift.name + '?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        // this.gifts = this.gifts.filter((val) => val.id !== gift.id);
-        this.srvGift.delete(gift.id).subscribe((data) => {
-
-          this.srvGift.getGifts().subscribe((data) => {
-            this.gifts = data
-            this.basicFilterGiftsArr=this.gifts
-
+    if(gift.usersList?.length == 0){
+      this.confirmationService.confirm({
+        message: 'Are you sure you want to delete ' + gift.name + '?',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          // this.gifts = this.gifts.filter((val) => val.id !== gift.id);
+          this.srvGift.delete(gift.id).subscribe((data) => {
+            this.srvGift.getGifts().subscribe((data) => {
+              this.gifts = data
+              this.basicFilterGiftsArr=this.gifts
+  
+            })
           })
-        })
+  
+          this.gift = {};
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Gift Deleted',
+            life: 3000,
+          });
+        }
+      });
+    }
+    else{
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Can not Delete',
+        detail: 'Someone already bought this gift.',
+        life: 3000,
+      });
+    }
 
-        this.gift = {};
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Gift Deleted',
-          life: 3000,
-        });
-      },
-    });
   }
 
   hideDialogNew(f: boolean) {

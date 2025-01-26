@@ -43,3 +43,21 @@ p-inputNumber input {
 //   color: black;
 //   // border: 1px solid #c8cbce;
 // }
+.disabled-card {
+  background-color: #f4f4f4 !important; /* צבע אפור בהיר */
+  opacity: 0.6; /* שקיפות כדי להיראות לא פעיל */
+  pointer-events: none; /* לא לאפשר אינטרקציה עם האלמנטים */
+}
+
+/* סטיילים לכפתורים לא פעילים */
+.disabled-button {
+  background-color: #dcdcdc !important; /* צבע אפור בהיר לכפתור */
+  color: #a1a1a1 !important; /* צבע טקסט אפור */
+}
+
+/* סטיילים לשדות קלט לא פעילים */
+p-inputNumber[disabled] {
+  background-color: #f0f0f0 !important; /* צבע רקע אפור בהיר */
+  color: #a1a1a1 !important; /* צבע טקסט אפור */
+  border-color: #dcdcdc !important; /* צבע גבול אפור */
+}
