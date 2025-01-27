@@ -55,7 +55,7 @@ export class UpdateGiftComponent {
 
   onDonorChange(event: any) {
     // עדכון הערך של donor ב-FormControl כאשר יש שינוי ב-dropdown
-    console.log('Donor changed', event);
+    // console.log('Donor changed', event);
     this.frmEditGift.controls['donor'].setValue(event.value);
   }
 
@@ -66,7 +66,7 @@ export class UpdateGiftComponent {
   }
 
   ngOnInit() {
-    console.log(this.gift);
+    // console.log(this.gift);
     
     // קריאה לשירות של תורמים כדי למלא את רשימת התורמים
     this.srvDonor.getDonors().subscribe((data) => {

@@ -26,6 +26,16 @@
 p-inputNumber input {
     width: 40px !important;
 }
+// p-inputNumber button {
+//   // width: 40px !important;
+//   // p-button-contrast
+//   background-color: black;
+//   border: 1px solid #000000;
+// }
+// p-dataview button {
+//   background-color: black;
+//   border: 1px solid #ffffff;
+// }
 // p-inputNumber span input p-inputtext:enabled:focus{
 //   outline: 0 none;
 //   outline-offset: 0;
@@ -60,4 +70,7 @@ p-inputNumber[disabled] {
   background-color: #f0f0f0 !important; /* צבע רקע אפור בהיר */
   color: #a1a1a1 !important; /* צבע טקסט אפור */
   border-color: #dcdcdc !important; /* צבע גבול אפור */
+}
+.margin{
+ margin-top: 8%;   
 }

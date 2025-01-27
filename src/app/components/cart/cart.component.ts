@@ -40,7 +40,6 @@ export class CartComponent {
     })
     // localStorage.setItem("Cart",JSON.stringify(this.gifts))
     localStorage.setItem("Cart",JSON.stringify(this.currentGifts))
-   
     if (localStorage.getItem("username")) {
       if(localStorage.getItem("Cart") == '[]'){
         this.messageservice.add({
@@ -52,7 +51,7 @@ export class CartComponent {
       }
       else{
         this.confirmationService.confirm({
-          message: 'You are adding a new order to ' + localStorage.getItem("username") + ' to confirm?',
+          message: 'You are adding a new order in sum of '+this.totalPrice+ '₪ to user: ' + localStorage.getItem("username") + ', to confirm?',
           header: 'Confirm',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
@@ -67,12 +66,12 @@ export class CartComponent {
               this.currentGifts=[]
               localStorage.setItem("Cart",'[]')
             })
-            this.messageservice.add({
-              severity: 'success',
-              summary: 'Successful',
-              detail: `The order of ${localStorage.getItem("username")} was successfully received.`,
-              life: 3000,
-            });
+            // this.messageservice.add({
+            //   severity: 'success',
+            //   summary: 'Successful',
+            //   detail: `The order of ${localStorage.getItem("username")} was successfully received.`,
+            //   life: 3000,
+            // });
           },
         })
       }
@@ -80,7 +79,18 @@ export class CartComponent {
     }
     else {
       // this.router.navigate(['/register'])
-      this.visible=true
+      if(localStorage.getItem("Cart") == '[]'){
+        this.messageservice.add({
+          severity: 'error',
+          summary: 'Empty Cart',
+          detail: `You havn't gifts on cart`,
+          life: 3000,
+        });
+      }
+      else{
+        this.visible=true
+      }
+     
     }
   }
   // giftsToDelete:GiftForCart[]=[]
@@ -89,9 +99,9 @@ export class CartComponent {
     let index= this.currentGifts.findIndex((g)=>g.id==gift.id)
     this.currentGifts.splice(index, 1);
     localStorage.setItem("Cart",JSON.stringify(this.currentGifts))
-    console.log(this.currentGifts);
-    console.log(gift);
-    console.log(index);
+    // console.log(this.currentGifts);
+    // console.log(gift);
+    // console.log(index);
     
   }
 }

@@ -41,7 +41,7 @@ export class TableGiftsDemoComponent  {
   ) {
   }
   ngOnInit() {
-    console.log(this.gifts);
+    // console.log(this.gifts);
     
     this.srvDonor.getDonors().subscribe((data) => {
       this.donors = data
@@ -51,7 +51,7 @@ export class TableGiftsDemoComponent  {
     })
     this.srvGift.getGifts().subscribe((data) => {
       this.gifts = data
-      console.log(this.gifts);
+      // console.log(this.gifts);
       this.basicFilterGiftsArr=this.gifts
 
     })
@@ -96,6 +96,13 @@ export class TableGiftsDemoComponent  {
   }
 
   deleteSelectedGifts() {
+    // let currentGifts =JSON.parse(localStorage.getItem('Cart') || '[]') 
+    // let ind = currentGifts.findIndex((g:Gift)=>g.id == gift.id) 
+    // if(ind > -1){
+    //   currentGifts.splice(ind,1)
+    //   localStorage.setItem('Cart', currentGifts)
+    // }
+    //check if the gift in the l.s
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected gifts?',
       header: 'Confirm',
@@ -138,7 +145,13 @@ export class TableGiftsDemoComponent  {
   }
 
   deleteGift(gift: Gift) {
+    let currentGifts =JSON.parse(localStorage.getItem('Cart') || '[]') 
+    let ind = currentGifts.findIndex((g:Gift)=>g.id == gift.id) 
     if(gift.usersList?.length == 0){
+      if(ind > -1){
+        currentGifts.splice(ind,1)
+        localStorage.setItem('Cart', currentGifts)
+      }
       this.confirmationService.confirm({
         message: 'Are you sure you want to delete ' + gift.name + '?',
         header: 'Confirm',
@@ -149,7 +162,6 @@ export class TableGiftsDemoComponent  {
             this.srvGift.getGifts().subscribe((data) => {
               this.gifts = data
               this.basicFilterGiftsArr=this.gifts
-  
             })
           })
   
@@ -176,12 +188,12 @@ export class TableGiftsDemoComponent  {
 
   hideDialogNew(f: boolean) {
     this.giftDialogNew = f
-    console.log(this.gifts);
+    // console.log(this.gifts);
 
   }
   hideDialogEdit(f: boolean) {
     this.giftDialogEdit = f
-    console.log(this.gifts);
+    // console.log(this.gifts);
 
   }
   filterGifts(target:any){
@@ -192,7 +204,7 @@ export class TableGiftsDemoComponent  {
     ).forEach((gift)=>
       this.filterGiftsArr.push(gift)
     )
-    console.log(this.filterGiftsArr);
+    // console.log(this.filterGiftsArr);
     this.gifts=this.filterGiftsArr
   }
   // findIndexById(id: string): number {

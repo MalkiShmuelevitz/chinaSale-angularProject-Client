@@ -57,12 +57,12 @@ export class GiftService {
     return this.http.post<Gift>(this.BASE_URL,gift)
   }
   postForCart(gifts:GiftForCart[],username:string):Observable<Gift[]>{
-    console.log(username);
-    console.log(gifts);
+    // console.log(username);
+    // console.log(gifts);
     const headers = {
       'Content-Type': 'application/json'
     }
-    console.log(this.BASE_URL+"/"+username,gifts,{headers});
+    // console.log(this.BASE_URL+"/"+username,gifts,{headers});
     return this.http.post<Gift[]>(this.BASE_URL+"/"+"users"+"?username="+username,gifts,{headers})
   }
   update(id:number,gift:Gift):Observable<Gift>{

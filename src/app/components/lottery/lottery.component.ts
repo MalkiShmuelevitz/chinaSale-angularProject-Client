@@ -26,7 +26,7 @@ export class LotteryComponent {
 
     ngOnInit() {
       this.globalService.getIsLoterryActive().subscribe((data)=>{
-        console.log(data);
+        // console.log(data);
         this.visible = data
       })
       this.giftService.getGifts().subscribe((data)=>{
@@ -35,21 +35,14 @@ export class LotteryComponent {
     }
     getWinners(){
       this.globalService.setIsLoterryActive(false)
-      this.giftService.getWithRandom().subscribe((data)=>{
-        this.gifts=data
-        // this.gifts.forEach((g)=>{
-        //   g={...g,usersList:[]}
-        //   console.log(g);
-        //   this.giftService.post(g).subscribe((data)=>{
-           
-        //   })
-        // })
-        
-      })
+      // setTimeout(()=>{
+        this.giftService.getWithRandom().subscribe((data)=>{
+          this.gifts=data
+        })
+      // },5000);
     }
     showUsers(gift:Gift){
       this.users = gift.usersList || []
-      console.log(gift);
       this.dialogShowUsers=true
     }
 

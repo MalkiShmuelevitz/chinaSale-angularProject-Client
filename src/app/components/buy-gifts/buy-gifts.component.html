@@ -1,4 +1,5 @@
 <p-toast></p-toast>
+<div class="margin">
 <div class="card">
     <p-dataView #dv [value]="gifts" [layout]="layout" >
         <ng-template pTemplate="header">
@@ -45,10 +46,12 @@
                                         <p-button 
                                         icon="pi pi-shopping-cart" 
                                         class="flex-auto md:flex-initial white-space-nowrap" 
-                                        label="Buy Ticket" 
+                                        label="Add" 
                                         (onClick)="addToCart(gift)"
                                         [disabled]="!visible"
                                          />   
+                                         <!-- severity="contrast" -->
+
                                          <!-- [disabled]=""  [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" -->
                                         <!-- <p-inputOtp value="1" [(ngModel)]="gift.quantity" [length]="1"/> -->
                                         <p-inputNumber 
@@ -60,6 +63,8 @@
                                         [max]="100"
                                         [disabled]="!visible"
                                         /> 
+                                        <!-- severity="contrast" -->
+
                                     <!-- <p-inputNumber
                                     [(ngModel)]="gift.quantity" 
                                     [showButtons]="true"
@@ -132,11 +137,12 @@
                                         <p-button 
                                         icon="pi pi-shopping-cart" 
                                         class="flex-auto md:flex-initial white-space-nowrap" 
-                                        label="Buy Ticket" 
+                                        label="Add" 
                                         [disabled]="!visible"
                                         (onClick)="addToCart(item)"
                                          />
-                                         
+                                         <!-- severity="contrast" -->
+
 
 
                                         <!-- [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" -->
@@ -172,6 +178,7 @@
                                         [max]="100"
                                         [disabled]="!visible"
                                         /> 
+                                        <!-- severity="contrast" -->
 
                                     </div>
                                 </div>
@@ -181,5 +188,6 @@
                 </div>
             </ng-template>
     </p-dataView>
+</div>
 </div>
 <p-confirmDialog [style]="{ width: '450px' }" />

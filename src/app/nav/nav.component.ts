@@ -35,6 +35,7 @@ export class NavComponent implements OnInit {
     //   { label: 'Cart', icon: 'pi pi-shopping-bag', route: 'cart' },
     //   { label: 'Lottery', icon: 'pi pi-trophy', route: 'lottery' },
     // ];
+
     this.globalService.getIsAdmin().subscribe((isAdmin) => {
       if(isAdmin){
       this.items = [
@@ -55,10 +56,10 @@ export class NavComponent implements OnInit {
       }
      
     })
-    this.globalService.getUserConnect().subscribe((username)=>{
-        this.username = username
-        this.usernameStart = username?.substring(0, 1).toUpperCase() || ""
-    })
+    // this.globalService.getUserConnect().subscribe((username)=>{
+    //     this.username = username
+    //     this.usernameStart = username?.substring(0, 1).toUpperCase() || ""
+    // })
    
   }
 

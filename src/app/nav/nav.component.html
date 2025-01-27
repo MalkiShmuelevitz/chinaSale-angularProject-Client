@@ -13,7 +13,7 @@
     </p-tabMenu>
 </div> -->
 
-
+<div class="navMenu">
 <div class="card">
     <p-megaMenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-3 surface-0">
         <ng-template pTemplate="start">
@@ -81,8 +81,10 @@
                     cart
                 </span>
             </a> -->
+            <div class="buttons1">
             <p-button icon="pi pi-user" [rounded]="true"  [outlined]="true" (onClick)="navigateToLogin()"/>
             <p-button icon="pi pi-sign-out" severity="danger" [rounded]="true"  [outlined]="true" (onClick)="logOut()"/>
+            </div>
             <!-- <p-button severity="secondary" label="Login" icon="pi pi-user" class="mr-2" /> -->
             <!-- <div class="card flex align-items-center"> -->
                 <!-- <p-chip styleClass="pl-0 pr-3" *ngIf="username">
@@ -98,4 +100,5 @@
             <!-- <p-avatar icon="pi pi-gift" image="pi pi-shopping-cart" shape="circle" /> -->
         </ng-template>
     </p-megaMenu>
+</div>
 </div>

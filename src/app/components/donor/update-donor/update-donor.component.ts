@@ -3,6 +3,7 @@ import { DonorService } from '../../../../service/donor.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Donor } from '../../../../domain/donor';
 import { Gift } from '../../../../domain/gift';
+import { GiftService } from '../../../../service/gift.service';
 @Component({
   selector: 'app-update-donor',
   templateUrl: './update-donor.component.html',
@@ -31,7 +32,9 @@ export class UpdateDonorComponent {
   @Input()
   donorFromManage!:Donor
  
-constructor(){
+constructor(
+  private giftService:GiftService
+){
   this.updateDonorForm=new FormGroup({
     fullName:new FormControl("",[Validators.required]),
     adress:new FormControl("",[Validators.required]),
@@ -61,6 +64,7 @@ constructor(){
     this.donorDialogEdit.emit(false)
   }
   saveDonor(){
+    let currentFullName = this.donor.fullName
     this.donor={
       id:this.donor.id,
       fullName:this.updateDonorForm.controls['fullName'].value,
@@ -68,6 +72,7 @@ constructor(){
       phone:this.updateDonorForm.controls['phone'].value,
       email:this.updateDonorForm.controls['email'].value
   }
+
     let ind=this.donors.findIndex(d=>d.fullName==this.donor.fullName)
     if(ind==-1 || this.donors[ind].id==this.donor.id){
       this.srvDonor.put(this.donor).subscribe((data)=>{
@@ -81,10 +86,23 @@ constructor(){
             detail: 'Donor Updated',
             life: 3000,
           })
+          if(currentFullName != this.donor.fullName){
+            this.giftService.getGifts().subscribe((data)=>{
+              data.forEach((g)=>{
+                if(g.donor == currentFullName){
+                  g.id = g.id || 0
+                  this.giftService.update(g.id,{...g,donor:this.donor.fullName})
+                  .subscribe((data)=>{
+                    this.giftService.getGifts().subscribe((data)=>{
+                      this.donorsToManage.emit(this.donors)
+                    })
+                  })
+                }
+              })   
+            })
+          }
         })
-       
       })
-      
     }
     else {
       this.messegeServiceAdd.emit({
@@ -95,6 +113,5 @@ constructor(){
       })
     }
     this.donorDialogEdit.emit(false)
-
   }
 }

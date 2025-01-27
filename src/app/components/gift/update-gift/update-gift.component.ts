@@ -58,7 +58,7 @@ export class UpdateGiftComponent {
   }
   onDonorChange(event:any) {
     // עדכון אם יש שינוי
-    console.log('Donor changed', event);
+    // console.log('Donor changed', event);
     this.frmEditGift.controls['donor'].setValue(event.value);
   }
   loadDonors(newDonors: Donor[]) {
@@ -66,7 +66,7 @@ export class UpdateGiftComponent {
     this.frmEditGift.get('donor')?.updateValueAndValidity();
   }
   ngOnInit() {
-    console.log(this.gift);
+    // console.log(this.gift);
     
     this.loadDonors(this.donors);
     this.srvGift.getGifts().subscribe((data) => {
@@ -84,7 +84,7 @@ export class UpdateGiftComponent {
     // this.submitted = false;
   }
   saveGift() {
-    console.log(this.gift);
+    // console.log(this.gift);
     if(this.gift.usersList?.length == 0){
       this.gift = {
         id: this.gift.id,

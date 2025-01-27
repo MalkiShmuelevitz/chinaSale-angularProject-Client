@@ -113,7 +113,7 @@
         </ng-template>
     </p-table>
 </div> -->
-
+<div class="margin">
 <div class="card">
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
@@ -187,7 +187,7 @@
                 <td>{{ donor.email }}</td>
 
                 <td>
-                    <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+                    <p-button icon="pi pi-pencil" class="mr-2" Raised [rounded]="true" [outlined]="true" severity="success"
                         (onClick)="editDonor(donor)" />
                 </td>
             </tr>
@@ -218,7 +218,7 @@
     </p-table>
 
     <p-dialog [(visible)]="donorDialogNew" [style]="{ width: '450px' }" header="Add Donor" [modal]="true"
-    styleClass="p-fluid" [closable]="true">
+    styleClass="p-fluid" [closable]="false">
     <app-add-donor 
     [donorsFromManage]="donors" 
     (donorsToManage)="renderDonors($event)"
@@ -238,6 +238,8 @@
    
       
   </p-dialog>
-  <p-toast />
+
   <p-confirmDialog [style]="{ width: '450px' }" />
 </div>
+</div>
+<p-toast />

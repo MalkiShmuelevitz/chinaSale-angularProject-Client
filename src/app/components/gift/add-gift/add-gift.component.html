@@ -90,7 +90,21 @@
             <label for="image">Image</label>
             <input type="text" pInputText id="image" formControlName="image"/> 
             <!-- <p-button icon="pi pi-upload" /> -->
-        
+            <!-- <div class="image-upload-container">
+                <div class="image-upload-row">
+                    <label for="image" class="image-label">Image</label>
+                    <p-button label="Import Image" icon="pi pi-image"
+                        class="p-button-raised p-button-info custom-button" [ngStyle]="{ 'margin-top': '10px' }"
+                        (click)="fileInput.click()">
+                    </p-button>
+                </div>
+
+                <input id="image" type="file" (change)="onImageSelected($event)" #fileInput
+                    style="display:none;" />
+
+                <small class="text-red-500" *ngIf="submitted && !gift.image">Image is required.</small>
+            </div> -->
+
             <!--             
             <div class="card flex justify-content-center">
                 <p-fileUpload 

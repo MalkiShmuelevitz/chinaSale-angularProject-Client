@@ -1,4 +1,7 @@
+<p-toast></p-toast>
+<div class="margin">
 <div class="card">
+   <p-toast/>
     <div class="flex flex-column md:flex-row">
         <form [formGroup]="frmRegister">
             <!-- <div class="w-full md:w-5 flex flex-column align-items-center justify-content-center gap-3 py-5"> -->
@@ -39,11 +42,11 @@
                     mask="9999 9999 9999 9999" 
                     formControlName="creditCard" slotChar=" "
                     placeholder="Enter your credit card" />
-                    <p-inputMask mask="99/99/9999" formControlName="creditCard" slotChar=" "
+                    <!-- <p-inputMask mask="99/99/9999" formControlName="creditCard" slotChar=" "
                     placeholder="Validity" />
                     <p-inputMask mask="999" formControlName="creditCard" slotChar=" "
                     placeholder="CVV" />
-                    <small class="p-error" *ngIf="frmRegister.controls['creditCard']?.errors?.['required'] && frmRegister.controls['creditCard'].dirty">Credit Card is required</small>
+                    <small class="p-error" *ngIf="frmRegister.controls['creditCard']?.errors?.['required'] && frmRegister.controls['creditCard'].dirty">Credit Card is required</small> -->
 
                 <!-- </div> -->
                 <p-button label="Pay" icon="pi pi-user" styleClass="w-12rem mx-auto" 
@@ -56,4 +59,4 @@
 
     </div>
 </div>
-<p-toast></p-toast>
+</div>

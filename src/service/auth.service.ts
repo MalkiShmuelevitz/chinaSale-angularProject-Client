@@ -18,6 +18,9 @@ export class AuthService implements CanActivate {
   ) { }
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    // console.log("auth");
+    // console.log(this.globalService.getIsAdmin());
+    
     return this.globalService.getIsAdmin();
   }
   login(frmLogin: FormGroup) {
@@ -43,7 +46,9 @@ export class AuthService implements CanActivate {
     })
   }
   logOut(){
-    localStorage.clear()
+    // localStorage.clear()
+    localStorage.setItem("Cart", '[]')
+    localStorage.setItem("username", '')
     this.globalService.setIsAdmin(false)
     this.globalService.setUserConnect("")
     this.router.navigate(['/'])

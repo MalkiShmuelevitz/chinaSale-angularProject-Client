@@ -1,8 +1,9 @@
-
+<div class="margin">
 <div class="card">
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
             <p-button [disabled]="!visible" severity="success" label="Winners" icon="pi pi-trophy" class="mr-2" (onClick)="getWinners()"/>
+            <p-progressSpinner ariaLabel="loading" />
         </ng-template>
       </p-toolbar>
     <p-dataView #dv [value]="gifts">
@@ -12,6 +13,7 @@
                     <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
                         <div class="md:w-10rem relative">
                             <img class="border-round w-full" [src]="'../../assets'+ '/' + item.image" [alt]="item.name" style="max-width: 300px;" />
+                            
                             <!-- <p-tag [value]="item.inventoryStatus" class="absolute" [style.left.px]="4" [style.top.px]="4" /> -->
                             <!-- [severity]="getSeverity(item)" -->
                         </div>
@@ -30,9 +32,23 @@
                                     <!-- </div> -->
                                 <!-- </div> -->
                             </div>
-                            <div class="flex flex-column md:align-items-end gap-5">
+                            <!-- <div class="flex flex-column md:align-items-end gap-5"> -->
+                                <div class="winner">
                                 <span *ngIf="item.winner!=null" class="text-xl font-semibold text-900">{{ item.winner.fullName}}</span>
+                                <span *ngIf="item.winner==null" class="text-xl font-semibold text-900">no one</span>
                                 
+                                <!-- <textarea
+                                    rows="3"
+                                    cols="5"
+                                    pInputTextarea 
+                                    value=""
+                                    >
+                                    </textarea> -->
+                                    <!-- *ngIf="item.winner!=null" -->
+                                    <!-- <i class="pi pi-user" style="font-size: 2.5rem"></i> -->
+                                    <!-- value="{{item.winner.fullName?item.winner.fullName:'noOneBuy'}}" -->
+
+
                                 <p-button icon="pi pi-user" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
                                 (onClick)="showUsers(item)" />
                                 <!-- <div class="flex flex-row-reverse md:flex-row gap-2"> -->
@@ -49,6 +65,7 @@
             </div>
         </ng-template>
     </p-dataView>
+</div>
 </div>
 <p-dialog [(visible)]="dialogShowUsers"
  [style]="{ width: '450px' }" 

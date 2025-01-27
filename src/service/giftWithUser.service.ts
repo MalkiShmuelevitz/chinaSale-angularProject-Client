@@ -27,12 +27,12 @@ export class GiftWithUserService {
     return this.http.get<GiftWithUser[]>(this.BASE_URL+"/random")
   }
   post(gifts:GiftForCart[],username:string):Observable<GiftWithUser[]>{
-    console.log(username);
-    console.log(gifts);
+    // console.log(username);
+    // console.log(gifts);
     const headers = {
       'Content-Type': 'application/json'
     }
-    console.log(this.BASE_URL+"/"+username,gifts,{headers});
+    // console.log(this.BASE_URL+"/"+username,gifts,{headers});
     return this.http.post<GiftWithUser[]>(this.BASE_URL+"?username="+username,gifts,{headers})
   }
   

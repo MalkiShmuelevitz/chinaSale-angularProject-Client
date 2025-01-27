@@ -52,37 +52,44 @@ export class RegisterComponent {
     // }
     )
     .subscribe((data)=>{
-      this.user=data
-      this.user.role='User'
-      this.srvGift.postForCart(
-        this.currentGifts,
-        this.frmRegister.controls["email"].value)
-      .subscribe((data)=>{
-        this.gifts=data
-        localStorage.setItem("Cart",'[]')
-        // if (!this.user)
-        //   alert("User not found go to register")
-        // else 
-        if (this.user.role) {
-          // localStorage.setItem("userrole", this.user.role)
-          let b:boolean=this.user.role=='Admin'?true:false
-          this.globalService.setIsAdmin(b)
-        }
-        if (this.user.email) {
-          localStorage.setItem("username", this.user.email)
-        }
-        if (this.user.fullName) {
-          this.globalService.setUserConnect(this.user.fullName)
-        }
-        ////////////////////////////////
+      if(data==null){
         this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Order added seccessfully',
+          severity: 'error',
+          summary: 'Error',
+          detail: 'This User already exist, Choose another!',
           life: 3000,
         });
-        this.router.navigate(['/'])
-        })
+      }
+      else{
+        this.user=data
+        this.user.role='User'
+        this.srvGift.postForCart(
+          this.currentGifts,
+          this.frmRegister.controls["email"].value)
+        .subscribe((data)=>{
+          this.gifts=data
+          localStorage.setItem("Cart",'[]')
+          if (this.user.role) {
+            // localStorage.setItem("userrole", this.user.role)
+            let b:boolean=this.user.role=='Admin'?true:false
+            this.globalService.setIsAdmin(b)
+          }
+          if (this.user.email) {
+            localStorage.setItem("username", this.user.email)
+          }
+          if (this.user.fullName) {
+            this.globalService.setUserConnect(this.user.fullName)
+          }
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Order added seccessfully',
+            life: 3000,
+          });
+          this.router.navigate(['/'])
+          })
+      }
+
     })
   }
 }

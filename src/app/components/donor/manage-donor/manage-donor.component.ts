@@ -64,6 +64,7 @@ export class ManageDonorComponent {
         this.donorService.getDonors().subscribe((data) => {
           console.log(data);  
           this.donors = data;
+          this.basicFilterDonorsArr=this.donors
           this.donors.forEach((donor) => {
             this.giftService.getGifts().subscribe((data) => {
               this.gifts = data
@@ -84,17 +85,24 @@ export class ManageDonorComponent {
       this.messageService.add(message)
     }
     filterDonors(target:any){
-
+      this.donors = this.basicFilterDonorsArr
+      this.filterDonorsArr=[]
+      const filterText = target.value.trim().toLowerCase();
+      this.donors.filter((g)=> g.fullName?.toLowerCase().includes(filterText)
+      ).forEach((donor)=>
+        this.filterDonorsArr.push(donor)
+      )
+      this.donors=this.filterDonorsArr
     }
     renderDonors(donorsFrom: Donor[]) {
       this.donors = donorsFrom
+      this.basicFilterDonorsArr=this.donors
       this.donors.forEach((donor) => {
         this.giftService.getGifts().subscribe((data) => {
           this.gifts = data
           donor.gifts=this.gifts.filter((g)=>g.donor==donor.fullName)
         })
       });      
-      this.basicFilterDonorsArr=this.donors
     }
     hideDialogNew(f: boolean) {
       this.donorDialogNew = f

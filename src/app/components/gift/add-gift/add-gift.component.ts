@@ -152,7 +152,16 @@ export class AddGiftComponent {
 
   }
   // }
-
+  onImageSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.gift.image = e.target.result; // שמירת התמונה שנבחרה ב-gift.image
+      };
+      reader.readAsDataURL(file); // קורא את התמונה וממיר אותה ל-Base64
+    }
+  } 
   hideDialog() {
     this.frmAddGift = new FormGroup({
       name: new FormControl("", [Validators.required]),

@@ -27,10 +27,12 @@
                                 </div>
                             </div>
                             <div class="flex flex-column md:align-items-end gap-5">
+                                
                                 <span class="text-xl font-semibold text-900">{{ '₪' + item.price * item.quantity }}</span>
                                 <!-- <div class="flex flex-row-reverse md:flex-row gap-2 flex"> -->
                                     <!-- <span class="text-xl font-semibold text-900">{{item.quantity}}</span> -->
                                     <!-- <div class="text-xl font-semibold text-10000">{{item.quantity}}</div> -->
+                                     <div class="buttons">
                                     <p-button  [disabled]="visible" icon="pi pi-trash" [outlined]="true" 
                                     severity="danger"
                                     (onClick)="deleteFromCart(item)"
@@ -44,7 +46,7 @@
                                     [max]="100"
                                     [disabled]="visible"
                                     /> 
-                                    
+                                </div>
                                     <!-- <p-button icon="pi pi-heart" [outlined]="true" /> -->
                                     <!-- <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap" label="Buy Now"  /> -->
                                     <!-- [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" -->
@@ -71,5 +73,7 @@
       <!-- </p-toolbar> -->
 </div>
 </div>
+
+
 <p-confirmDialog [style]="{ width: '450px' }" />
 <p-toast></p-toast>
