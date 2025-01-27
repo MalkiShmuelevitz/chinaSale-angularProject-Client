@@ -49,8 +49,9 @@
                                         label="Add" 
                                         (onClick)="addToCart(gift)"
                                         [disabled]="!visible"
+                                        severity="contrast"
                                          />   
-                                         <!-- severity="contrast" -->
+                                        
 
                                          <!-- [disabled]=""  [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" -->
                                         <!-- <p-inputOtp value="1" [(ngModel)]="gift.quantity" [length]="1"/> -->
@@ -140,8 +141,8 @@
                                         label="Add" 
                                         [disabled]="!visible"
                                         (onClick)="addToCart(item)"
+                                        severity="contrast"
                                          />
-                                         <!-- severity="contrast" -->
 
 
 
@@ -177,6 +178,7 @@
                                         [min]="1" 
                                         [max]="100"
                                         [disabled]="!visible"
+                                        buttonStyleClass="contrast-button"
                                         /> 
                                         <!-- severity="contrast" -->
 

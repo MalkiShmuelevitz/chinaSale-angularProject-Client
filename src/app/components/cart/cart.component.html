@@ -45,6 +45,7 @@
                                     [min]="1" 
                                     [max]="100"
                                     [disabled]="visible"
+                                    class="custom-input-number"
                                     /> 
                                 </div>
                                     <!-- <p-button icon="pi pi-heart" [outlined]="true" /> -->
@@ -62,12 +63,19 @@
 <div class="content">
     <!-- <p-toolbar styleClass="mb-4 gap-2"> -->
         <!-- <ng-template pTemplate="center"> -->
-            <p-button severity="success" label="Payment" icon="pi pi-credit-card" class="w-full" [disabled]="visible" (onClick)="payment()"/>
-            <p-toolbar *ngIf="visible" styleClass="mb-4 gap-2">
-                <ng-template pTemplate="right">
-                    <span  class="text-xl font-semibold text-900">You are going to pay {{totalPrice}}₪</span>
-                    </ng-template>
-              </p-toolbar>
+            <div class="flex">
+            <p-button 
+            severity="contrast"
+            label="Payment" 
+            icon="pi pi-credit-card" 
+            class="w-full" [disabled]="visible" (onClick)="payment()"/>
+            
+            <!-- <p-toolbar *ngIf="visible" styleClass="mb-4 gap-2"> -->
+                <!-- <ng-template pTemplate="right"> -->
+                <span *ngIf="visible" class="text-xl font-semibold text-900">You are going to pay {{totalPrice}}₪</span>
+            </div>
+                <!-- </ng-template> -->
+              <!-- </p-toolbar> -->
             <app-register *ngIf="visible"></app-register>
             <!-- </ng-template> -->
       <!-- </p-toolbar> -->

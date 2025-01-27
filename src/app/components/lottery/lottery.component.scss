@@ -6,3 +6,38 @@
 .margin{
     margin-top: 8%;   
    }
+   .progress-bar {
+    position: absolute; /* או fixed, תלוי בפריסה שלך */
+    top: 185px; /* מיקום בחלק העליון של הדף */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* ודא שזה מעל אלמנטים אחרים */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* גובה הסרגל (הגדל כאן) */
+    width: 100%; /* רוחב הסרגל */
+}
+
+// .large-spinner {
+//     width: 120px !important; /* גובה הספינר (הגדל כאן) */
+//     height: 120px !important; /* רוחב הספינר (הגדל כאן) */
+// }
+.custom-spinner {
+    width: 1000px; /* גודל מותאם */
+    height: 1000px; /* גודל מותאם */
+}
+
+.overlay-image {
+    position: fixed; /* או absolute, תלוי בפריסה שלך */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    // background-image: url('../../assets/1.jpg'); /* החלף עם הנתיב לתמונה שלך */
+    background-size: cover; /* או contain, תלוי איך אתה רוצה שהתמונה תתאים */
+    background-position: center;
+    opacity: 0.5; /* שלוט על הבהירות כאן */
+    z-index: 999; /* ודא שזה מעל אלמנטים אחרים */
+    pointer-events: none; /* מאפשר קליקים על אלמנטים מתחת לתמונה */
+}

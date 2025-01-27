@@ -21,10 +21,30 @@ align-items: center;
 p-inputNumber input {
   width: 40px !important;
 }
+/* גישה ל-input של כל p-inputNumber בעמוד */
+// .p-inputnumber .p-inputnumber-input {
+//   width: 40px;
+// }
+/* גישה ל-input הפנימי של p-inputNumber */
+// .custom-input-number .p-inputnumber-input {
+//   width: 40px;
+// }
+// .p-inputnumber .p-inputnumber-input {
+//   width: 40px !important;
+// }
+::ng-deep .p-inputnumber .p-inputnumber-input {
+  width: 40px !important;
+}
 .buttons{
   display: flex;
   gap: 3%;
 }
 .margin{
   margin-top: 8%;   
+ }
+ .flex{
+  display: flex;
+  gap: 7%;
+  flex-direction: column;
+  align-items: stretch;
  }

@@ -8,6 +8,7 @@ import { Donor } from '../../../../domain/donor';
 import { Table } from 'primeng/table';
 import { AfterViewInit } from '@angular/core';
 import { GlobalService } from '../../../../service/global.service';
+import * as XLSX from 'xlsx-js-style';
 
 @Component({
   selector: 'app-table-gifts-demo',
@@ -207,43 +208,92 @@ export class TableGiftsDemoComponent  {
     // console.log(this.filterGiftsArr);
     this.gifts=this.filterGiftsArr
   }
-  // findIndexById(id: string): number {
-  //   let index = -1;
-  //   for (let i = 0; i < this.gifts.length; i++) {
-  //     if (this.gifts[i].id === id) {
-  //       index = i;
-  //       break;
-  //     }
-  //   }
+ 
 
-  //   return index;
-  // }
+  exporToExcel(){
 
-  // createId(): number {
-  //   let i = this.srvGift.length() - 1 || 0
-  //   if(i>=0){
-  //       this.num = this.gifts[i].id || 0
-  //       this.num++
-  //   }
-  //   else
-  //     this.num=1
-
-  //   // var chars =
-  //   //   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  //   // for (var i = 0; i < 5; i++) {
-  //   //   id += chars.charAt(Math.floor(Math.random() * chars.length));
-  //   // }
-  //   return this.num;
-  // }
-
-  // getSeverity(status: string) {
-  //   switch (status) {
-  //     case 'INSTOCK':
-  //       return 'success';
-  //     case 'LOWSTOCK':
-  //       return 'warning';
-  //     case 'OUTOFSTOCK':
-  //       return 'danger';
-  //   }
-  // }
+    const dataToExport = this.gifts.map(gift => {
+          return {
+            'Id': gift.id,
+            'Name': gift.name,
+            'Price': gift.price,
+            'Donor': gift.donor,
+          };
+        })
+         const headers = [
+          'Id',
+            'Name',
+            'Price',
+            'Donor',
+        ];
+        const fullData = [headers, ...dataToExport.map(row => Object.values(row))];
+    
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet(fullData);
+     
+        ws['!merges'] = [
+            { s: { r: 0, c: 0 }, e: { r: 0, c: headers.length - 1 } }, // מיזוג לכותרת הכללית
+            { s: { r: 1, c: 0 }, e: { r: 1, c: headers.length - 1 } }, // מיזוג לכותרת המשנה
+        ];
+     
+      
+        ws['!cols'] = headers.map(() => ({ wpx: 150 })); // רוחב עמודות
+        ws['!rows'] = [
+            { hpx: 30 }, // גובה שורת כותרת כללית
+            { hpx: 25 }, // גובה שורת משנה
+            { hpx: 25 }, // גובה שורת כותרות
+        ];
+     
+      
+        const headerStyle = {
+            font: { bold: true },
+            fill: { fgColor: { rgb: 'D3D3D3' }}, 
+            border: {
+              top: { style: 'thin', color: { rgb: '000000' } }, 
+              left: { style: 'thin', color: { rgb: '000000' } }, 
+              bottom: { style: 'thin', color: { rgb: '000000' } }, 
+              right: { style: 'thin', color: { rgb: '000000' } } 
+          }
+        };
+        const titleStyle = {
+            font: { bold: true, sz: 16 }, // פונט גדול ומודגש
+            alignment: { horizontal: 'right' } // יישור לשמאל
+        };
+        const subtitleStyle = {
+            font: { italic: true, sz: 12 }, // פונט נטוי וקטן יותר
+            alignment: { horizontal: 'right' } // יישור לשמאל
+        };
+     
+        ws['A1'].s = titleStyle; // עיצוב כותרת כללית
+        ws['A2'].s = subtitleStyle; // עיצוב כותרת המשנה
+        headers.forEach((header, index) => {
+            const cellAddress = XLSX.utils.encode_cell({ r: 2, c: index });
+            ws[cellAddress].s = headerStyle; // עיצוב כותרות העמודות
+        });
+        const dateColumnIndexes = [10, 11];  
+        for (let R = 3; R <= dataToExport.length + 3; R++) { // מתחילים משורה 3 (לא לשכוח את השורות הריקות)
+          dateColumnIndexes.forEach(dateColumnIndex => {
+            const cell = ws[XLSX.utils.encode_cell({ c: dateColumnIndex, r: R })];
+    
+            // בודקים אם התא קיים
+            if (!cell) return;
+    
+            // אם התא לא מכיל כבר עיצוב, יוצרים אובייקט עיצוב חדש
+            if (!cell.s) cell.s = {};
+    
+            // אם התא מכיל תאריך, מיישמים יישור לימין
+            if (cell.v && !isNaN(new Date(cell.v).getTime())) {
+              cell.s.alignment = { horizontal: 'right', vertical: 'center' }; // יישור לימין
+            }
+          });
+        }
+    
+      ws['!pageSetup'] = { layout: { textDirection: 'rtl' } };
+        wb.Workbook = {
+          Views: [{ RTL: true }],
+                };
+        XLSX.utils.book_append_sheet(wb, ws, 'gifts');
+        XLSX.writeFile(wb, 'Gifts.xlsx');
+        
+  }
 }

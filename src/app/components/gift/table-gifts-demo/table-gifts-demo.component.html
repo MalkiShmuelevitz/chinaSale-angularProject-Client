@@ -12,8 +12,10 @@
     <ng-template pTemplate="right">
       <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import"
         class="mr-2 inline-block" /> -->
-      <p-button label="Export" icon="pi pi-upload" (onClick)="exportCSV($event)" class="mr-2 inline-block"/>
-      <p-button label="Open Loterry" icon="pi pi-trophy" severity="help" (onClick)="openLoterry()"/>
+      <p-button label="Export" icon="pi pi-upload" (onClick)="exporToExcel()" class="mr-2 inline-block"/>
+      <p-button 
+      severity="help"
+      label="Open Loterry" icon="pi pi-trophy" (onClick)="openLoterry()"/>
       <!-- (onClick)="exportCSV($event)" -->
     </ng-template>
   </p-toolbar>

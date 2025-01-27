@@ -27,8 +27,13 @@ header="Login"
 
     </div>
     <div class="flex justify-content-end gap-2">
-        <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
-        <p-button label="Login" icon="pi pi-user" styleClass="w-10rem mx-auto"[disabled]="!frmLogin.valid"  (onClick)="login()" />
+        <p-button  
+        severity="contrast"
+        [outlined]="true"
+        label="Cancel" severity="secondary" (onClick)="visible = false" />
+        <p-button 
+        severity="contrast"
+        label="Login" icon="pi pi-user" styleClass="w-10rem mx-auto"[disabled]="!frmLogin.valid"  (onClick)="login()" />
     </div>
 </form>
 </p-dialog>

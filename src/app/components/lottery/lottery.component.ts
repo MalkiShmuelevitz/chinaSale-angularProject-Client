@@ -19,6 +19,7 @@ export class LotteryComponent {
   users:User[]=[]
   dialogShowUsers: boolean = false;
   visible:boolean=false
+  loading:boolean=false
   constructor(
     private giftService: GiftService,
     private globalService:GlobalService
@@ -33,14 +34,17 @@ export class LotteryComponent {
         this.gifts=data;
       })
     }
-    getWinners(){
-      this.globalService.setIsLoterryActive(false)
-      // setTimeout(()=>{
-        this.giftService.getWithRandom().subscribe((data)=>{
-          this.gifts=data
-        })
-      // },5000);
-    }
+    getWinners() {
+      this.globalService.setIsLoterryActive(false); // הפעלת ה-progress bar
+      this.loading=true
+      setTimeout(() => {
+          this.giftService.getWithRandom().subscribe((data) => {
+              this.gifts = data;
+              this.loading=false
+          });
+      }, 5000);
+  }
+  
     showUsers(gift:Gift){
       this.users = gift.usersList || []
       this.dialogShowUsers=true

@@ -1,11 +1,23 @@
 <div class="margin">
+<!-- <div *ngIf="loading" class="overlay-image">
+    <img src="'../../../../../assets/back.jpg " alt="background" width="1350" height="900"/>
+</div> -->
+
 <div class="card">
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
-            <p-button [disabled]="!visible" severity="success" label="Winners" icon="pi pi-trophy" class="mr-2" (onClick)="getWinners()"/>
-            <p-progressSpinner ariaLabel="loading" />
+            <p-button [disabled]="!visible" severity="contrast" label="Winners" icon="pi pi-trophy" class="mr-2" (onClick)="getWinners()"/>
+           
         </ng-template>
       </p-toolbar>
+      <div class="progress-bar" >
+        <p-progressSpinner ariaLabel="loading"
+        *ngIf="loading"
+        ></p-progressSpinner>
+    </div>
+    
+
+
     <p-dataView #dv [value]="gifts">
         <ng-template pTemplate="list" let-gifts>
             <div class="grid grid-nogutter">
