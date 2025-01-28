@@ -14,7 +14,9 @@ export class AuthService implements CanActivate {
   constructor(
     private router: Router,
     private globalService: GlobalService,
-    private userService: UserService
+    private userService: UserService,
+    // private messageService:MessageService
+
   ) { }
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -31,18 +33,27 @@ export class AuthService implements CanActivate {
       user = data
       if (!user)
         alert("User not found go to register")
-      else if (user.role) {
-        let b: boolean = user.role == 'Admin' ? true : false
-        this.globalService.setIsAdmin(b)
+        // this.messageService.add({
+        //   severity: 'error',
+        //   summary: 'Error',
+        //   detail: 'User not exist, please buy gifts and register',
+        //   life: 3000,
+        // });
+      else{
+        if (user.role) {
+          let b: boolean = user.role == 'Admin' ? true : false
+          this.globalService.setIsAdmin(b)
+        }
+        if (user.email) {
+          localStorage.setItem("username", user.email)
+        }
+        if (user.fullName) {
+          this.globalService.setUserConnect(user.fullName)
+        }
+        localStorage.setItem("Cart", '[]')
+        this.router.navigate(['/'])
       }
-      if (user.email) {
-        localStorage.setItem("username", user.email)
-      }
-      if (user.fullName) {
-        this.globalService.setUserConnect(user.fullName)
-      }
-      localStorage.setItem("Cart", '[]')
-      this.router.navigate(['/'])
+      
     })
   }
   logOut(){

@@ -189,6 +189,8 @@
                 <td>
                     <p-button icon="pi pi-pencil" class="mr-2" Raised [rounded]="true" [outlined]="true" severity="success"
                         (onClick)="editDonor(donor)" />
+                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true"
+                        (onClick)="deleteDonor(donor)" />
                 </td>
             </tr>
         </ng-template>

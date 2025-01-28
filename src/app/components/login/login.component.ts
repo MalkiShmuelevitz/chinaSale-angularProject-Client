@@ -18,6 +18,7 @@ import { AuthService } from '../../../service/auth.service';
 export class LoginComponent {
   srvUser: UserService = inject(UserService)
   frmLogin!: FormGroup
+  // myGroup!: FormGroup
   user!: User
   constructor(
     private router: Router,
@@ -27,14 +28,24 @@ export class LoginComponent {
     private authService:AuthService
   ) {  }
   ngOnInit() {
+    this.frmLogin = new FormGroup({
+        username: new FormControl("", [Validators.required, Validators.email]),
+        password: new FormControl("", Validators.required)
+      })
+
+  // this.myGroup = new FormGroup({
+  //   firstName: new FormControl()
+  // });
     this.globalService.getVisibleLogin().subscribe((visible)=>{
+      // this.frmLogin = new FormGroup({
+      //   username: new FormControl("", [Validators.required, Validators.email]),
+      //   password: new FormControl("", Validators.required)
+      // })
       // this.frmLogin.reset()
       this.visible=visible
+      
     })
-    this.frmLogin = new FormGroup({
-      username: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", Validators.required)
-    })
+    
   }
   login() {
     this.visible=false

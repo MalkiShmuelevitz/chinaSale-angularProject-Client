@@ -37,15 +37,15 @@ export class GlobalService{
     this.isLoterryActive.next(b)
   }
   getUserConnect(){
-    this.setUserConnect(JSON.parse(localStorage.getItem('UserConnect') || ""))
+    // this.setUserConnect(JSON.parse(localStorage.getItem('UserConnect') || ""))
     return this.userConnect
   }
   setUserConnect(b:string){
-    localStorage.setItem('UserConnect',JSON.stringify(b))
+    // localStorage.setItem('UserConnect',JSON.stringify(b))
     this.userConnect.next(b)
   }
   getVisibleLogin(){
-    this.setUserConnect(JSON.parse(localStorage.getItem('VisibleLogin') || ""))
+    this.setVisibleLogin(JSON.parse(localStorage.getItem('VisibleLogin') || ''))
     return this.visibleLogin
   }
   setVisibleLogin(b:boolean){

@@ -40,16 +40,6 @@ export class RegisterComponent {
     this.currentGifts = JSON.parse(localStorage.getItem("Cart") || '[]')
     this.srvUser.post(
       this.frmRegister.value
-    //   {
-    //   email:this.frmRegister.controls['email'].value,
-    //   password:this.frmRegister.controls['password'].value,
-    //   fullName:this.frmRegister.controls['fullname'].value,
-    //   adress:this.frmRegister.controls['adress'].value,
-    //   phone:this.frmRegister.controls['phone'].value,
-    //   creditCard:this.frmRegister.controls['creditCard'].value,
-    //   role:"User",
-    //   id:1
-    // }
     )
     .subscribe((data)=>{
       if(data==null){
@@ -86,7 +76,9 @@ export class RegisterComponent {
             detail: 'Order added seccessfully',
             life: 3000,
           });
-          this.router.navigate(['/'])
+            setTimeout(()=>{
+              this.router.navigate(['/'])
+            },3000)
           })
       }
 

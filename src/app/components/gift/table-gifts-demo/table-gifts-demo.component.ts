@@ -25,7 +25,7 @@ export class TableGiftsDemoComponent  {
   num: number = 0
   gifts!: Gift[];
   gift!: Gift;
-  selectedGifts!: Gift[] | null;
+  selectedGifts: Gift[] = [];
   submitted: boolean = false;
   filterGiftsArr: Gift[]=[];
   basicFilterGiftsArr: Gift[]=[];
@@ -103,6 +103,8 @@ export class TableGiftsDemoComponent  {
     //   currentGifts.splice(ind,1)
     //   localStorage.setItem('Cart', currentGifts)
     // }
+
+
     //check if the gift in the l.s
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected gifts?',
@@ -120,7 +122,7 @@ export class TableGiftsDemoComponent  {
         // this.gifts = this.gifts.filter(
         //   (val) => !this.selectedGifts?.includes(val)
         // );
-        this.selectedGifts = null;
+        this.selectedGifts = [];
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -146,6 +148,12 @@ export class TableGiftsDemoComponent  {
   }
 
   deleteGift(gift: Gift) {
+    // let index = this.selectedGifts.findIndex((g)=>g.id==gift.id)
+    // console.log(this.selectedGifts);
+    // if(index > -1){
+    //   this.selectedGifts?.splice(index,1)
+    //   console.log(this.selectedGifts);
+    // }
     let currentGifts =JSON.parse(localStorage.getItem('Cart') || '[]') 
     let ind = currentGifts.findIndex((g:Gift)=>g.id == gift.id) 
     if(gift.usersList?.length == 0){
@@ -211,7 +219,6 @@ export class TableGiftsDemoComponent  {
  
 
   exporToExcel(){
-
     const dataToExport = this.gifts.map(gift => {
           return {
             'Id': gift.id,

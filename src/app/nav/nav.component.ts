@@ -56,10 +56,10 @@ export class NavComponent implements OnInit {
       }
      
     })
-    // this.globalService.getUserConnect().subscribe((username)=>{
-    //     this.username = username
-    //     this.usernameStart = username?.substring(0, 1).toUpperCase() || ""
-    // })
+    this.globalService.getUserConnect().subscribe((username)=>{
+        this.username = username
+        this.usernameStart = username?.substring(0, 1).toUpperCase() || ""
+    })
    
   }
 

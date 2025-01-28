@@ -82,11 +82,20 @@
                 </span>
             </a> -->
             <div class="buttons1">
+                <p-chip styleClass="pl-0 pr-3" *ngIf="username">
+                    <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center" >
+                        {{usernameStart}}
+                    </span>
+                    <span class="ml-2 font-medium">
+                        {{username}}
+                    </span>
+                </p-chip>
             <p-button icon="pi pi-user" [rounded]="true" [outlined]="true" (onClick)="navigateToLogin()"/>
             <p-button  
             severity="contrast"
             icon="pi pi-sign-out" [rounded]="true"  [outlined]="true" (onClick)="logOut()"/>
-            </div>
+          
+        </div>
             <!-- <p-button severity="secondary" label="Login" icon="pi pi-user" class="mr-2" /> -->
             <!-- <div class="card flex align-items-center"> -->
                 <!-- <p-chip styleClass="pl-0 pr-3" *ngIf="username">
@@ -104,3 +113,42 @@
     </p-megaMenu>
 </div>
 </div>
+<!-- <p-confirmDialog [style]="{ width: '450px' }" />
+
+<p-button 
+            (onClick)="showDialog()" 
+            icon="pi pi-arrow-left" 
+            label="Right" 
+            severity="secondary" />
+<p-dialog 
+header="Login" 
+[modal]="true"
+[(visible)]="visible" 
+[style]="{ width: '25rem' }">
+<form [formGroup]="frmLogin">
+    <span class="p-text-secondary block mb-5">
+        Update your information.
+    </span>
+    <div class="flex align-items-center gap-3 mb-3">
+        <label class="w-6rem">Username</label>
+        <input formControlName="username" pInputText id="username" type="text" class="w-12rem" />
+        <small class="p-error" *ngIf="frmLogin.controls['username'].errors?.['required'] && frmLogin.controls['username'].dirty">Username is required</small>
+        <div class="p-error" *ngIf="frmLogin.controls['username'].errors?.['email'] && frmLogin.controls['username'].dirty && frmLogin.controls['username'].touched">Username not valid</div>
+    </div>
+    <div class="flex align-items-center gap-3 mb-5">
+        <label class="w-6rem">Password</label>
+        <input formControlName="password" pInputText id="password" type="password" class="w-12rem" />
+        <small class="p-error" *ngIf="frmLogin.controls['password'].errors?.['required'] && frmLogin.controls['password'].dirty">Password is required</small>
+
+    </div>
+    <div class="flex justify-content-end gap-2">
+        <p-button  
+        severity="contrast"
+        [outlined]="true"
+        label="Cancel" severity="secondary" (onClick)="visible = false" />
+        <p-button 
+        severity="contrast"
+        label="Login" icon="pi pi-user" styleClass="w-10rem mx-auto"[disabled]="!frmLogin.valid"  (onClick)="login()" />
+    </div>
+</form>
+</p-dialog> -->

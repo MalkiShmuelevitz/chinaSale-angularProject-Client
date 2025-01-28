@@ -25,13 +25,14 @@
 // }
 p-inputNumber input {
     width: 40px !important;
+    border: 1px solid #374151;
+  }
+p-inputNumber button {
+  // width: 40px !important;
+  // p-button-contrast
+  background-color: #20252c;
+  border: 1px solid #20252c;
 }
-// p-inputNumber button {
-//   // width: 40px !important;
-//   // p-button-contrast
-//   background-color: black;
-//   border: 1px solid #000000;
-// }
 // p-dataview button {
 //   background-color: black;
 //   border: 1px solid #ffffff;
@@ -74,8 +75,8 @@ p-inputNumber[disabled] {
 .margin{
  margin-top: 8%;   
 }
-.contrast-button {
-  background-color: #007ad9; /* צבע רקע דומה ל-contrast */
-  color: white; /* צבע טקסט */
-  border: none; /* הסרת גבול */
-}
+// .contrast-button {
+//   background-color: #007ad9; /* צבע רקע דומה ל-contrast */
+//   color: white; /* צבע טקסט */
+//   border: none; /* הסרת גבול */
+// }

@@ -34,6 +34,17 @@ p-inputNumber input {
 // }
 ::ng-deep .p-inputnumber .p-inputnumber-input {
   width: 40px !important;
+  border: 1px solid #000000;
+}
+::ng-deep .p-confirmdialog button {
+  background-color: #20252c !important;
+  border: 1px solid #20252c !important;
+}
+::ng-deep .p-inputNumber .p-button {
+  // width: 40px !important;
+  // p-button-contrast
+  background-color: #20252c !important;
+  border: 1px solid #20252c !important;
 }
 .buttons{
   display: flex;

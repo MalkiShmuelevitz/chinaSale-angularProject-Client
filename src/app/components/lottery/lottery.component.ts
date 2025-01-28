@@ -35,7 +35,7 @@ export class LotteryComponent {
       })
     }
     getWinners() {
-      this.globalService.setIsLoterryActive(false); // הפעלת ה-progress bar
+      this.globalService.setIsLoterryActive(false);
       this.loading=true
       setTimeout(() => {
           this.giftService.getWithRandom().subscribe((data) => {

@@ -6,8 +6,7 @@
 <div class="card">
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
-            <p-button [disabled]="!visible" severity="contrast" label="Winners" icon="pi pi-trophy" class="mr-2" (onClick)="getWinners()"/>
-           
+            <p-button [disabled]="!visible"  label="Winners" severity="contrast" icon="pi pi-trophy" class="mr-2" (onClick)="getWinners()"/>
         </ng-template>
       </p-toolbar>
       <div class="progress-bar" >
@@ -46,8 +45,8 @@
                             </div>
                             <!-- <div class="flex flex-column md:align-items-end gap-5"> -->
                                 <div class="winner">
-                                <span *ngIf="item.winner!=null" class="text-xl font-semibold text-900">{{ item.winner.fullName}}</span>
-                                <span *ngIf="item.winner==null" class="text-xl font-semibold text-900">no one</span>
+                                <!-- <span *ngIf="item.winner==null && item.users!=null || item.winner!=null && item.users==null" class="text-xl font-semibold text-900">no one</span> -->
+                                <span *ngIf="item.winner!=null && item.users==null" class="text-xl font-semibold text-900">{{ item.winner.fullName}}</span>
                                 
                                 <!-- <textarea
                                     rows="3"

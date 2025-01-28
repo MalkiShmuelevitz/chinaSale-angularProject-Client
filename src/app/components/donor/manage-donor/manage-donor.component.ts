@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DonorService } from '../../../../service/donor.service';
 import { GiftService } from '../../../../service/gift.service';
 import { Gift } from '../../../../domain/gift';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-manage-donor',
@@ -57,7 +57,8 @@ export class ManageDonorComponent {
   basicFilterDonorsArr: Gift[]=[];
     constructor(private donorService: DonorService,
       private messageService:MessageService,
-      private giftService:GiftService
+      private giftService:GiftService,
+      private confirmationService:ConfirmationService
       ) {}
 
     ngOnInit() {
@@ -109,5 +110,48 @@ export class ManageDonorComponent {
     }
     hideDialogEdit(f: boolean) {
       this.donorDialogEdit = f
+    }
+    deleteDonor(donor:Donor){
+        if(donor.gifts?.length!=0){
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Can not Delete',
+            detail: 'This Donor donate a gift',
+            life: 3000,
+          });
+        }
+        else {
+          this.confirmationService.confirm({
+            message: 'Are you sure you want to delete ' + donor.fullName + '?',
+            header: 'Confirm',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+              if(donor.id){
+                this.donorService.delete(donor.id).subscribe((data) => {
+                  this.donorService.getDonors().subscribe((data) => {
+                    this.donors = data
+                    this.basicFilterDonorsArr=this.donors
+                  })
+                })
+                this.donor = {};
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Successful',
+                  detail: 'Donor Deleted',
+                  life: 3000,
+                });
+              }
+              else{
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Can not Delete',
+                  detail: 'ERROR',
+                  life: 3000,
+                });
+              }
+            }
+          });
+        }
+      
     }
 }
